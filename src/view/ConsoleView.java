@@ -17,7 +17,7 @@ public class ConsoleView {
   /**
    * Constructor of the view. Associates a game to it.
    * 
-   * @param game
+   * @param game GameLogic of the game.
    */
   public ConsoleView(IGameLogic game) {
     this.game = game;
@@ -56,8 +56,8 @@ public class ConsoleView {
   /**
    * Shows the last card played.
    * 
-   * @param player
-   * @param card
+   *
+   * 
    */
   public void updatePlayedCard() {
     System.out.println("[Carta Descartada]: " + game.getCurrentPlayedCard());

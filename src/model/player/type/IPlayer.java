@@ -17,6 +17,7 @@ public interface IPlayer {
 
   /**
    * Adds the array of cards to the hand of the player.
+   * @param hand The hand that will have the cards added to.
    */
   void addToHand(ArrayList<ICard> hand);
 
@@ -55,14 +56,14 @@ public interface IPlayer {
   /**
    * Returns true if the player has only one card in hand.
    * 
-   * @return
+   * @return true if the player has only one card in hand.
    */
   public boolean hasOneCard();
 
   /**
-   * Returns an array with the cards in hand of the player
+   * Returns an array with the cards in hand of the player.
    * 
-   * @return
+   * @return an array with the cards in hand of the player.
    */
   public ArrayList<ICard> getHand();
 
@@ -90,7 +91,7 @@ public interface IPlayer {
   /**
    * Returns true if the player needs to draw a card.
    * 
-   * @param current card card in play now.
+   * @param currentCard current card card in play now.
    * @return true if the player needs to draw a card.
    */
   boolean needsToDrawCard(ICard currentCard);

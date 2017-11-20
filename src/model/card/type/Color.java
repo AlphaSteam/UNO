@@ -35,7 +35,7 @@ public enum Color {
   /**
    * Returns all the available colors (Without <i>colorless</i> color)
    * 
-   * @return
+   * @return all the available colors (Without <i>colorless</i> color)
    */
   public static Color[] getColors() {
     return Arrays.copyOfRange(Color.values(), 1, 5);

@@ -3,37 +3,43 @@ package model.player.type;
 import controller.IController;
 import model.IGameLogic;
 import model.card.type.Color;
+import model.card.type.DrawCard;
 import model.card.type.ICard;
 
 /**
- * Class that relies on human input to retrieve cards from the hand.
+ * Human player, this type of player is controlled by a human through the console.
  * 
- * @author danno
+ * @author Sebastian
  *
  */
 public class HumanPlayer extends AbstractPlayer {
+  protected int i;
 
-  /**
-   * Initializes this player with the given name.
-   * 
-   * @param name this players name.
-   */
-  public HumanPlayer(String name) {
-    super(name);
+  public HumanPlayer(int i) {
+    this.i = i;
   }
 
   @Override
   public ICard getCardToPlay(IGameLogic game, IController ctrl) {
     int num = ctrl.AskForCardFromHand(this);
-    if (num == getHandSize()) {
-      return game.drawOneCard(this);
+    if (num < game.getCurrentPlayer().getHandSize()) {
+      return this.getCardFromHand(num);
     } else {
-      return getCardFromHand(num);
+      return new DrawCard();
+
     }
+
+  }
+
+  @Override
+  public String toString() {
+    String result = "Jugador " + this.i + " (Humano)";
+    return result;
   }
 
   @Override
   public Color selectColor(IGameLogic game, IController ctrl) {
     return ctrl.askForColor();
   }
+
 }

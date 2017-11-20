@@ -1,39 +1,81 @@
 package controller;
 
+import java.util.Scanner;
+
 import model.IGameLogic;
 import model.card.type.Color;
+import model.card.type.ICard;
 import model.player.type.IPlayer;
 
 /**
- * Class that implements a controller that effectively does nothing. Used for testing without human
- * input.
+ * A controller that doesn't print anything on screen.
  * 
- * @author danno
+ * @author eriveros
  *
  */
 public class NullController implements IController {
 
+  IGameLogic game;
+  Scanner in;
+  protected boolean cardPlayed = false;
+
+  /**
+   * Controller constructor. Initializes model, and input method. Also, it plays the card in discard
+   * pile.
+   * 
+   * @param game GameLogic of the game.
+   * 
+   */
   public NullController(IGameLogic game) {
-    game.getCurrentPlayedCard().executeAction(game, this);
+    this.game = game;
   }
-  
+
+  @Override
+  public void playTurn() {
+    game.startTurn(this);
+    IPlayer currentPlayer = game.getCurrentPlayer();
+    this.cardPlayed = false;
+    while (!this.cardPlayed) {
+      ICard card = currentPlayer.getCardToPlay(game, this);
+      cardPlayed = game.playCard(card, this);
+    }
+  }
+
   @Override
   public Color askForColor() {
-    return Color.NONE;
+    int i = 0;
+    for (Color color : Color.getColors()) {
+      System.out.println("" + i + ") " + color.getName());
+      i++;
+    }
+    int num = -1;
+    while (num < 0 || num >= 4) {
+      System.out.println("Por favor, ingresar un número entre el 0 y el 3.");
+      num = in.nextInt();
+    }
+    return Color.getColors()[num];
   }
 
   @Override
   public int AskForCardFromHand(IPlayer player) {
-    return 0;
+    int num = -1;
+
+    while (num < 0 || num > player.getHandSize()) {
+      num = in.nextInt();
+    }
+    return num;
   }
 
   @Override
-  public void showMessage(String message) {}
+  public void showMessage(String message) {
+    return;
+  }
 
   @Override
-  public void playTurn() {}
+  public void updatePlayedCard() {
+    return;
+  }
 
-  @Override
-  public void updatePlayedCard() {}
+
 
 }

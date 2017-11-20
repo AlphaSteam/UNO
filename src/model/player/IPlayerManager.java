@@ -7,14 +7,16 @@ import model.player.type.IPlayer;
 
 public interface IPlayerManager {
 
-  /** 
+  /**
    * Returns the current player
+   * 
    * @return current player
    */
   IPlayer getCurrentPlayer();
 
   /**
    * Returns the list of players
+   * 
    * @return list of players
    */
   ArrayList<IPlayer> getPlayers();

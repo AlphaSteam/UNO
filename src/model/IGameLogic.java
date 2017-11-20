@@ -36,7 +36,7 @@ public interface IGameLogic {
   /**
    * Allows to autoshout UNO if a player has only one card.
    * 
-   * @param ctrl
+   * @param ctrl ConsoleController that controles what happens each turn in the game.
    */
   void autoShoutUNO(IController ctrl);
 
@@ -56,7 +56,7 @@ public interface IGameLogic {
   /**
    * Adds cards to the draw well.
    * 
-   * @param number
+   * @param number Number of cards to be added to the DrawWell.
    */
   void addToDrawWell(int number);
 
@@ -97,7 +97,8 @@ public interface IGameLogic {
   /**
    * Draws one card from the deck. Also sets some state variables.
    * 
-   * @param player
+   * @param player Player that is playing the card.
+   * @return the card being played.
    */
   ICard drawOneCard(IPlayer player);
 

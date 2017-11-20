@@ -2,112 +2,91 @@ package model.player.type;
 
 import java.util.ArrayList;
 
-import controller.IController;
-import model.IGameLogic;
-import model.card.type.Color;
 import model.card.type.ICard;
 import model.card.type.NullCard;
 
 /**
- * Class that encapsulates a players hand behaviour. Delegates the requests for classes that extend
- * this one.
+ * This class provides a skeletal implementation of the Player interface to minimize the effort
+ * required to implement this interface.
  * 
- * @author danno
+ * @author Sebastian Alfaro
+ * @version 1.4
+ *
  */
 public abstract class AbstractPlayer implements IPlayer {
-
   protected ArrayList<ICard> hand = new ArrayList<ICard>();
-  private String name;
-  private boolean saidUno = false;
-
-  /**
-   * Initializes a player with the given name.
-   * 
-   * @param aName a name for this player.
-   */
-  protected AbstractPlayer(String aName) {
-    name = aName;
-  }
+  protected boolean SaidUno = false;
 
   @Override
   public void addToHand(ArrayList<ICard> hand) {
-    this.hand.addAll(hand);
-    cleanHand();
+    for (ICard card : hand) {
+      getHand().add(card);
+    }
+
   }
 
   @Override
   public boolean hasWon() {
-    return hand.isEmpty();
+    if (getHandSize() == 0) {
+      return true;
+    } else
+      return false;
   }
 
   @Override
-  abstract public ICard getCardToPlay(IGameLogic game, IController ctrl);
-
-  @Override
-  abstract public Color selectColor(IGameLogic game, IController ctrl);
-
-  @Override
   public int getHandSize() {
-    return hand.size();
+    return this.hand.size();
   }
 
   @Override
   public boolean hasOneCard() {
-    return hand.size() == 1;
+    if (this.getHandSize() == 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @Override
   public ArrayList<ICard> getHand() {
-    return hand;
+    return this.hand;
   }
 
   @Override
   public void setSaidUNO(boolean status) {
-    saidUno = status;
+    this.SaidUno = status;
+
   }
 
   @Override
   public boolean hasSaidUNO() {
-    return saidUno;
+    return this.SaidUno;
   }
 
   @Override
   public void removeCardFromHand(ICard card) {
-    hand.remove(card);
+    getHand().remove(card);
+
   }
 
   @Override
   public boolean needsToDrawCard(ICard currentCard) {
-    boolean needsTo = true;
-    for (ICard card : hand) {
-      needsTo = needsTo && !card.isPlayableOver(currentCard);
+    for (int i = 0; i < this.getHandSize(); i++) {
+      if (this.getCardFromHand(i).isPlayableOver(currentCard)) {
+        return false;
+      }
     }
-    return needsTo;
+    return true;
   }
 
   @Override
   public ICard getCardFromHand(int number) {
-    try {
-      return hand.get(number);
-    } catch (IndexOutOfBoundsException e) {
-      return NullCard.instance();
+    if (number < this.hand.size()) {
+      return getHand().get(number);
+    } else {
+      NullCard NC = new NullCard();
+      return NC;
     }
   }
 
-  @Override
-  public String toString() {
-    return name;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o instanceof IPlayer) {
-      return ((IPlayer) o).getHand().equals(hand);
-    }
-    return false;
-  }
-
-  private void cleanHand() {
-    hand.removeIf(card -> !card.isDiscardable());
-  }
 }
