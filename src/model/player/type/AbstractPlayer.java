@@ -16,6 +16,7 @@ import model.card.type.NullCard;
 public abstract class AbstractPlayer implements IPlayer {
   protected ArrayList<ICard> hand = new ArrayList<ICard>();
   protected boolean SaidUno = false;
+  protected boolean human;
 
   @Override
   public void addToHand(ArrayList<ICard> hand) {
@@ -87,6 +88,10 @@ public abstract class AbstractPlayer implements IPlayer {
       NullCard NC = new NullCard();
       return NC;
     }
+  }
+  @Override
+  public boolean isHuman(){
+    return this.human;
   }
 
 }

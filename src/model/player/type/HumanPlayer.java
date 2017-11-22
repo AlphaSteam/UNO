@@ -17,6 +17,7 @@ public class HumanPlayer extends AbstractPlayer {
 
   public HumanPlayer(int i) {
     this.i = i;
+    this.human=true;
   }
 
   @Override
@@ -33,7 +34,7 @@ public class HumanPlayer extends AbstractPlayer {
 
   @Override
   public String toString() {
-    String result = "Jugador " + this.i + " (Humano)";
+    String result = "Jugador " + this.i;
     return result;
   }
 

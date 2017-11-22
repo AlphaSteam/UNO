@@ -13,7 +13,18 @@ public interface IPlayerManager {
    * @return current player
    */
   IPlayer getCurrentPlayer();
-
+  /**
+   * Returns the last player
+   * 
+   * @return last player
+   */
+  IPlayer getLastPlayer();
+  /**
+   * Returns the nexy player
+   * 
+   * @return next player
+   */
+  IPlayer getNextPlayer();
   /**
    * Returns the list of players
    * 

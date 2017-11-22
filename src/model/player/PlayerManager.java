@@ -29,6 +29,39 @@ public class PlayerManager implements IPlayerManager {
   public IPlayer getCurrentPlayer() {
     return players.get(index);
   }
+  @Override
+  public IPlayer getLastPlayer() {
+    if (this.Dir == Direction.COUNTERCLOCKWISE) {
+      if (index < 0) {
+        return(players.get(index-1));
+      } else {
+        return(players.get(players.size()-1));
+      }
+    } else {
+      if (index < getPlayers().size() - 1 ) {
+        return(players.get(index+1));
+      } else {
+        return(players.get(0));
+      }
+    }
+  }
+
+  @Override
+  public IPlayer getNextPlayer() {
+    if (this.Dir == Direction.COUNTERCLOCKWISE) {
+      if (index < getPlayers().size() - 1) {
+        return(players.get(index+1));
+      } else {
+        return(players.get(0));
+      }
+    } else {
+      if (index > 0) {
+        return(players.get(index-1));
+      } else {
+        return(players.get(players.size()-1));
+      }
+    }
+  }
 
   @Override
   public ArrayList<IPlayer> getPlayers() {
@@ -49,24 +82,15 @@ public class PlayerManager implements IPlayerManager {
 
   @Override
   public void startTurn() {
-    skipPlayer();
+    index=this.players.indexOf(getNextPlayer());
   }
 
   @Override
   public void skipPlayer() {
-    if (this.Dir == Direction.COUNTERCLOCKWISE) {
-      if (index < getPlayers().size() - 1) {
-        this.index++;
-      } else {
-        this.index = 0;
-      }
-    } else {
-      if (index > 0) {
-        this.index--;
-      } else {
-        this.index = this.getPlayers().size() - 1;
-      }
-    }
+this.startTurn();
+
   }
+
+  
 
 }

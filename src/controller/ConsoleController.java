@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Observable;
 import java.util.Scanner;
 
 import model.IGameLogic;
@@ -14,7 +15,7 @@ import view.ConsoleView;
  * @author eriveros
  *
  */
-public class ConsoleController implements IController {
+public class ConsoleController extends Observable implements IController {
 
   IGameLogic game;
   ConsoleView view;

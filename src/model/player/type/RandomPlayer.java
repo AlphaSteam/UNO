@@ -20,6 +20,7 @@ public class RandomPlayer extends AbstractPlayer {
 
   public RandomPlayer(int i) {
     this.i = i;
+    this.human=false;
   }
 
   @Override
@@ -39,7 +40,7 @@ public class RandomPlayer extends AbstractPlayer {
 
   @Override
   public String toString() {
-    String result = "Jugador " + this.i + " (Robot)";
+    String result = "Jugador " + this.i;
     return result;
   }
 

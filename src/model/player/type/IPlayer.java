@@ -103,5 +103,11 @@ public interface IPlayer {
    * @return the number card from the player's hand. NullCard if it doesn't exist.
    */
   ICard getCardFromHand(int number);
+  /**
+   * Returns true the player is human and false otherwhise
+   * 
+   * @return true if the player is human and false otherwhise
+   */
+  boolean isHuman();
 
 }

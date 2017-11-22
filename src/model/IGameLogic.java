@@ -32,7 +32,16 @@ public interface IGameLogic {
    * @return current played card
    */
   ICard getCurrentPlayedCard();
-
+  /**
+   * Returns the last player
+   * @return last player
+   */
+  IPlayer getLastPlayer();
+  /**
+   * Returns the next player
+   * @return next player
+   */
+  IPlayer getNextPlayer();
   /**
    * Allows to autoshout UNO if a player has only one card.
    * 

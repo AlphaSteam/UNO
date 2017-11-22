@@ -44,6 +44,16 @@ public class GameLogic implements IGameLogic {
   }
 
   @Override
+  public IPlayer getLastPlayer() {
+    return PlayerM.getLastPlayer();
+  }
+
+  @Override
+  public IPlayer getNextPlayer() {
+    return PlayerM.getNextPlayer();
+  }
+
+  @Override
   public ICard getCurrentPlayedCard() {
     return CardM.getCurrentPlayedCard();
   }
@@ -136,6 +146,7 @@ public class GameLogic implements IGameLogic {
     ctrl.showMessage("The Winner is: " + getCurrentPlayer());
 
   }
+
 
 
 }
