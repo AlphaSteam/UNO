@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import controller.IController;
 import model.card.CardPilesManager;
@@ -17,7 +18,7 @@ import model.player.type.IPlayer;
  * @author Sebastian Alfaro
  * 
  */
-public class GameLogic implements IGameLogic {
+public class GameLogic extends Observable implements IGameLogic  {
   protected boolean ended = false;
   protected ICardPilesManager CardM;
   protected IPlayerManager PlayerM;
@@ -36,6 +37,7 @@ public class GameLogic implements IGameLogic {
   @Override
   public boolean hasEnded() {
     return ended;
+    
   }
 
   @Override
@@ -73,7 +75,7 @@ public class GameLogic implements IGameLogic {
     if (!this.isDrawWellEmpty()) {
       this.drawCardsFromWell(getCurrentPlayer(), ctrl);
       this.resetDrawWell();
-      PlayerM.skipPlayer();
+      this.skipPlayer();
     }
 
 
@@ -145,6 +147,11 @@ public class GameLogic implements IGameLogic {
   public void announceWinner(IController ctrl) {
     ctrl.showMessage("The Winner is: " + getCurrentPlayer());
 
+  }
+
+  @Override
+  public ICardPilesManager getCardManager() {
+   return this.CardM;
   }
 
 

@@ -93,5 +93,6 @@ public abstract class AbstractPlayer implements IPlayer {
   public boolean isHuman(){
     return this.human;
   }
+  
 
 }

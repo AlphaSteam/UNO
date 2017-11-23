@@ -12,7 +12,11 @@ import model.player.type.IPlayer;
  *
  */
 public interface ICardPilesManager {
-
+  /**
+   * Returns the size of the discard pile.
+   * @return size of the discard pile.
+   */
+  int sizeofDiscard();
   /**
    * Regenerates a deck using older discard pile cards.
    */

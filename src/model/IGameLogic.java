@@ -1,6 +1,7 @@
 package model;
 
 import controller.IController;
+import model.card.ICardPilesManager;
 import model.card.type.ICard;
 import model.player.type.IPlayer;
 
@@ -10,7 +11,13 @@ import model.player.type.IPlayer;
  * @author eriveros
  *
  */
-public interface IGameLogic {
+public interface IGameLogic  {
+  /**
+   * returns the CardPilesManager
+   * 
+   * @return CardPilesManager
+   */
+  public ICardPilesManager getCardManager();
 
   /**
    * Returns true if the game has ended. False otherwise.
@@ -32,16 +39,21 @@ public interface IGameLogic {
    * @return current played card
    */
   ICard getCurrentPlayedCard();
+
   /**
    * Returns the last player
+   * 
    * @return last player
    */
   IPlayer getLastPlayer();
+
   /**
    * Returns the next player
+   * 
    * @return next player
    */
   IPlayer getNextPlayer();
+
   /**
    * Allows to autoshout UNO if a player has only one card.
    * 

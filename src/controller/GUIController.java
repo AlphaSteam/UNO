@@ -2,8 +2,11 @@ package controller;
 
 import java.util.Scanner;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import model.IGameLogic;
 import model.card.type.Color;
+import model.card.type.ICard;
 import model.player.type.IPlayer;
 import view.GUIView;
 
@@ -14,6 +17,7 @@ public class GUIController implements IController{
   public GUIController(IGameLogic game,GUIView view){
     this.game=game;
     this.view=view;
+    game.getCurrentPlayedCard().executeAction(game, this);
   }
   @Override
   public Color askForColor() {
@@ -23,8 +27,8 @@ public class GUIController implements IController{
 
   @Override
   public int AskForCardFromHand(IPlayer player) {
-    // TODO Auto-generated method stub
     return 0;
+  
   }
 
   @Override
@@ -36,13 +40,17 @@ public class GUIController implements IController{
   @Override
   public void playTurn() {
     this.game.startTurn(this);
+    updatePlayedCard();
+    view.updateCurrentStatus();
+    
     
   }
 
   @Override
   public void updatePlayedCard() {
-    // TODO Auto-generated method stub
+   view.updatePlayedCard();
     
   }
+
 
 }

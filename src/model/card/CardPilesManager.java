@@ -80,4 +80,9 @@ public class CardPilesManager implements ICardPilesManager {
     return Cards;
   }
 
+  @Override
+  public int sizeofDiscard() {
+    return Discard.getSize();
+  }
+
 }

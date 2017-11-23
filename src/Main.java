@@ -11,6 +11,7 @@ import model.player.type.HumanPlayer;
 import model.player.type.IPlayer;
 import model.player.type.RandomPlayer;
 import view.ConsoleView;
+import view.GUIView;
 
 /**
  * Main class of UNO Game
@@ -23,24 +24,26 @@ import view.ConsoleView;
 public class Main {
 
   public static void main(String[] args) {
-    DeckBuilder DB = new DeckBuilder();
-    ICardPile Deck = DB.createDeck();
-    IPlayerListBuilder playerBuilder = new PlayerListBuilder();
-    IPlayer Player1 = new HumanPlayer(1);
-    IPlayer PlayerR1 = new RandomPlayer(2);
-    IPlayer PlayerR2 = new RandomPlayer(3);
-    IPlayer PlayerR3 = new RandomPlayer(4);
-    playerBuilder.addPlayer(Player1);
-    playerBuilder.addPlayer(PlayerR1);
-    playerBuilder.addPlayer(PlayerR2);
-    playerBuilder.addPlayer(PlayerR3);
-    ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();
-    IGameLogic game = new GameLogic(AL, Deck);
-    ConsoleView view = new ConsoleView(game);
-    ConsoleController ctrl = new ConsoleController(game, view);
-    while (!game.hasEnded()) {
-      ctrl.playTurn();
+//    DeckBuilder DB = new DeckBuilder();
+//    ICardPile Deck = DB.createDeck();
+//    IPlayerListBuilder playerBuilder = new PlayerListBuilder();
+//    IPlayer Player1 = new HumanPlayer(1);
+//    IPlayer PlayerR1 = new RandomPlayer(2);
+//    IPlayer PlayerR2 = new RandomPlayer(3);
+//    IPlayer PlayerR3 = new RandomPlayer(4);
+//    playerBuilder.addPlayer(Player1);
+//    playerBuilder.addPlayer(PlayerR1);
+//    playerBuilder.addPlayer(PlayerR2);
+//    playerBuilder.addPlayer(PlayerR3);
+//    ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();
+//    IGameLogic game = new GameLogic(AL, Deck);
+//    ConsoleView view = new ConsoleView(game);
+//    ConsoleController ctrl = new ConsoleController(game, view);
+//    while (!game.hasEnded()) {
+//      ctrl.playTurn();
+//    }
+//    game.announceWinner(ctrl);
+    GUIView.launch(GUIView.class, args);
     }
-    game.announceWinner(ctrl);
-  }
+    
 }

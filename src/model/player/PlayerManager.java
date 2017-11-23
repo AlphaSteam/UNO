@@ -32,13 +32,13 @@ public class PlayerManager implements IPlayerManager {
   @Override
   public IPlayer getLastPlayer() {
     if (this.Dir == Direction.COUNTERCLOCKWISE) {
-      if (index < 0) {
+      if (index > 0) {
         return(players.get(index-1));
       } else {
         return(players.get(players.size()-1));
       }
     } else {
-      if (index < getPlayers().size() - 1 ) {
+      if (index < getPlayers().size() - 1) {
         return(players.get(index+1));
       } else {
         return(players.get(0));
@@ -82,6 +82,7 @@ public class PlayerManager implements IPlayerManager {
 
   @Override
   public void startTurn() {
+    System.out.println("Turno empezado"+" Index="+index);
     index=this.players.indexOf(getNextPlayer());
   }
 
