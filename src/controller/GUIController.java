@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import javafx.animation.PauseTransition;
@@ -8,6 +11,13 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.IGameLogic;
 import model.card.type.Color;
@@ -27,7 +37,34 @@ public class GUIController implements IController {
 
   @Override
   public Color askForColor() {
-    // TODO Auto-generated method stub
+//    List<String> choices = new ArrayList<>();
+//    choices.add("Red");
+//    choices.add("Blue");
+//    choices.add("Green");
+//    ChoiceDialog<String> dialog = new ChoiceDialog<>("Red", choices);
+//    DialogPane dialogPane = dialog.getDialogPane();
+//    dialogPane.getStylesheets().add(
+//        getClass().getResource("myDialogs.css").toExternalForm());
+//     dialogPane.getStyleClass().add("myDialog");
+//    dialog.setTitle("Color Selection");
+//    dialog.setHeaderText("Action Required");
+//    dialog.setContentText("Choose new color:");
+//    Optional<String> result = dialog.showAndWait();
+//    
+//    if (result.isPresent()){
+//     return Color.valueOf(result.get().toUpperCase());
+//  }
+//    return null;
+    Stage stage = new Stage();
+    Group root=new Group();
+    stage.setTitle("Color Selection");
+    Scene scene=new Scene(root, 450, 450)
+    stage.setScene(scene);
+    Color c = Color.web("#2B2B2B", 0.7);
+    scene.setFill(c);
+    
+    
+    stage.show();
     return null;
   }
 

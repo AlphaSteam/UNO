@@ -31,7 +31,7 @@ public class GameLogic  extends AbstractGameLogic  {
     this.CardM = new CardPilesManager(Deck);
     for (IPlayer player : this.PlayerM.getPlayers()) {
       if (CardM.getDrawableCardsNumber() >= 7) {
-        CardM.addCardsToPlayer(player, 20);
+        CardM.addCardsToPlayer(player, 7);
       }
     }
   }
