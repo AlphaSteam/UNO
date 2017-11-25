@@ -1,6 +1,7 @@
 package model.player.type;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import controller.IController;
 import model.IGameLogic;

@@ -4,19 +4,20 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import model.IGameLogic;
 import model.card.type.ICard;
+import model.player.type.IPlayer;
 
-public class CardHandler implements EventHandler<Event>{
+public class DeckHandler implements EventHandler<Event>{
   ICard Card;
   IGameLogic Game;
   GUIController ctrl;
-public CardHandler(ICard card,IGameLogic game,GUIController ctrl){
-  this.Card=card;
+public DeckHandler(IGameLogic game,GUIController ctrl){
   this.Game=game;
   this.ctrl=ctrl;
 }
 @Override
 public void handle(Event event) {
-   Game.playCard(Card,ctrl);
+  IPlayer CurrentPlayer=Game.getCurrentPlayer();
+   Game.drawOneCard(CurrentPlayer);
    event.consume();
    
  }

@@ -82,7 +82,6 @@ public class PlayerManager implements IPlayerManager {
 
   @Override
   public void startTurn() {
-    System.out.println("Turno empezado"+" Index="+index);
     index=this.players.indexOf(getNextPlayer());
   }
 

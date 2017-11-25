@@ -1,12 +1,13 @@
 package view;
 
-import java.beans.EventHandler;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
 import controller.GUIController;
+import controller.LeftButtonHandler;
+import controller.RightButtonHandler;
 import controller.CardHandler;
+import controller.DeckHandler;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -14,12 +15,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -39,36 +37,50 @@ import model.player.type.IPlayer;
 import model.player.type.RandomPlayer;
 
 public class GUIView extends Application implements Observer {
-  IPlayer CurrentPlayer;
-  IPlayer LastPlayer;
-  IPlayer NextPlayer;
-  Text JugadorActualName = new Text(" ");
-  Text JugadorAnteriorName = new Text(" ");
-  Text JugadorSigName = new Text(" ");
-  Image Human=new Image(GUIView.class.getResourceAsStream("/Images/HumanPortrait2.png"));
-  Image Robot=new Image(GUIView.class.getResourceAsStream("/Images/RobotPortrait.png"));
+  // Players
+  private IPlayer CurrentPlayer;
+  private IPlayer LastPlayer;
+  private IPlayer NextPlayer;
+  // Players in time
+  private Text JugadorActualName = new Text(" ");
+  private Text JugadorAnteriorName = new Text(" ");
+  private Text JugadorSigName = new Text(" ");
+  // Images
+  private Image Human = new Image(GUIView.class.getResourceAsStream("/Images/HumanPortrait2.png"));
+  private Image Robot = new Image(GUIView.class.getResourceAsStream("/Images/RobotPortrait.png"));
+  private Image Discard = new Image(GUIView.class.getResourceAsStream("/Images/UNOCards/NULL.png"));
+  private ImageView P1V = new ImageView(Human);
+  private ImageView P2V = new ImageView(Human);
+  private ImageView P3V = new ImageView(Robot);
+  private ImageView DiscardView = new ImageView(Discard);
+  // GameLogic
+  private GameLogic game = (GameLogic) MakeGame();
+  // Controller
+  private GUIController ctrl = new GUIController(game, this);
+  // Hand(HBox)
+  private HBox hhand = new HBox();
+  // Values
+  private int X = 1920;
+  private int Y = 1080;
+  private double scaleSec = 0.7;
+  private double scalePrim = 0.95;
+  private int offset = -25;
+  private int offsetY = 35;
+  private int offsetYImg = 15;
+  private double TurnScale = 1;
+  private double CardScale = 0.6;
+  private int HandOffsetY = -100;
+  private double ButtonsScaleY = 1.2;
+  private int FirstCardIndex = 0;
+  // DiscardCards Text
+  Text DiscardText = new Text(game.getCardManager().sizeofDiscard() + "Cards");
+  // DeckCards Text
+  Text DeckText = new Text(game.getCardManager().getDrawableCardsNumber()
+      - game.getCardManager().sizeofDiscard() + "Cards");
 
-  Image Discard = new Image(GUIView.class.getResourceAsStream("/Images/UNOCards/NULL.png"));
-  ImageView P1V = new ImageView(Human);
-  ImageView P2V = new ImageView(Human);
-  ImageView P3V = new ImageView(Robot);
-  ImageView DiscardView = new ImageView(Discard);
-  IGameLogic game = MakeGame();
-  HBox hhand = new HBox();
-  int X = 1920;
-  int Y = 1080;
-  double scaleSec = 0.7;
-  double scalePrim = 0.95;
-  int offset = -25;
-  int offsetY = 35;
-  int offsetYImg = 15;
-  double TurnScale = 1;
-  double CardScale = 0.6;
-  int HandOffsetY=-100;
-  GUIController ctrl = new GUIController(game, this);
   @Override
   public void start(Stage primaryStage) {
-
+    game.addObserver(this);
     // Create root BorderPane
     BorderPane root = new BorderPane();
     // Creacion de Textos
@@ -126,11 +138,12 @@ public class GUIView extends Application implements Observer {
     JugadorSigTxt.setScaleY(scaleSec * TurnScale);
     JugadorSigTxt.setTranslateY(offsetY + 2 * (1 / TurnScale));
     JugadorSigTxt.setTranslateX((offset - 2) * (1 / TurnScale));
-    // DiscardCards Text
-    Text DiscardText = new Text(game.getCardManager().sizeofDiscard() + "Cards");
+    // DiscardText
     DiscardText.setFont(Font.loadFont(
         GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 30));
-
+    // DeckText
+    DeckText.setFont(Font.loadFont(
+        GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 30));
 
     // Create Images
     P1V.setScaleX(scaleSec * TurnScale);
@@ -153,11 +166,26 @@ public class GUIView extends Application implements Observer {
     ImageView DeckView = new ImageView(Deck);
     DeckView.setScaleX(CardScale);
     DeckView.setScaleY(CardScale);
+    DeckView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        new DeckHandler(game, ctrl));
+    // LeftButton
+    Image LeftButton = new Image(GUIView.class.getResourceAsStream("/Images/Buttons/Left.png"));
+    ImageView LeftView = new ImageView(LeftButton);
+    LeftView.setTranslateY(HandOffsetY);
+    LeftView.setScaleY(ButtonsScaleY);
+    LeftView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        new LeftButtonHandler(this, game));
+    // RightButton
+    Image RightButton = new Image(GUIView.class.getResourceAsStream("/Images/Buttons/Right.png"));
+    ImageView RightView = new ImageView(RightButton);
+    RightView.setTranslateY(HandOffsetY);
+    RightView.setScaleY(ButtonsScaleY);
+    RightView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        new RightButtonHandler(this, game));
+
     // Hbox for cards in hand
-    
     hhand.setPadding(new Insets(15, 12, 15, 12));
-    hhand.setAlignment(Pos.CENTER);
-    root.setBottom(hhand);
+
     // Create GridPane
     GridPane gp = new GridPane();
     gp.setPadding(new Insets(10, 0, 10, 0));
@@ -184,6 +212,7 @@ public class GUIView extends Application implements Observer {
     GridPane.setHalignment(JugadorSigName, HPos.CENTER);
     GridPane.setHalignment(P3V, HPos.CENTER);
     gp.setAlignment(Pos.CENTER);
+    // gp.setGridLinesVisible(true);
     root.setTop(gp);
 
     // Create VBox
@@ -195,7 +224,9 @@ public class GUIView extends Application implements Observer {
     gp2.add(DiscardView, 0, 0);
     gp2.add(DeckView, 1, 0);
     gp2.add(DiscardText, 0, 1);
+    gp2.add(DeckText, 1, 1);
     GridPane.setHalignment(DiscardText, HPos.CENTER);
+    GridPane.setHalignment(DeckText, HPos.CENTER);
     gp2.setAlignment(Pos.TOP_CENTER);
     RowConstraints cc = new RowConstraints();
     cc.setMaxHeight(300);
@@ -203,22 +234,31 @@ public class GUIView extends Application implements Observer {
     cc2.setMaxHeight(DiscardView.getScaleX());
     gp2.getRowConstraints().addAll(cc, cc2);
     root.setCenter(gp2);
-    gp2.setGridLinesVisible(true);
-    gp.setGridLinesVisible(true);
+    // gp2.setGridLinesVisible(true);
+
+    // Create Grid 3
+    GridPane gp3 = new GridPane();
+    gp3.add(LeftView, 0, 0);
+    gp3.add(hhand, 1, 0);
+    gp3.add(RightView, 2, 0);
+    // gp3.setGridLinesVisible(true);
+    gp3.setAlignment(Pos.CENTER);
+    root.setBottom(gp3);
 
     // Create Scene
     Scene scene = new Scene(root, X, Y);
-    scene.setFill(Color.DARKCYAN);
+    Color c = Color.web("#2B2B2B", 0.7);
+    scene.setFill(c);
     primaryStage.setMinWidth(X);
     primaryStage.setMinHeight(Y);
     primaryStage.setMaximized(true);
     primaryStage.setTitle("JavaUNO");
     primaryStage.setScene(scene);
-    
-    
-    ctrl.playTurn();
     primaryStage.show();
-    
+
+    ctrl.playTurn();
+
+
   }
 
   public static void main(String args[]) {
@@ -226,7 +266,22 @@ public class GUIView extends Application implements Observer {
     launch(args);
     // ConsoleView view = new ConsoleView(game);
     // ConsoleController ctrl = new ConsoleController(game, view);
+  }
 
+  public int GetFirstCardIndex() {
+    return this.FirstCardIndex;
+  }
+
+  public void SetFirstCardIndex(int x) {
+    this.FirstCardIndex = x;
+  }
+
+  public void IncrementCardIndex(int x) {
+    this.FirstCardIndex += x;
+  }
+
+  public void DecrementCardIndex(int x) {
+    this.FirstCardIndex -= x;
   }
 
   public static IGameLogic MakeGame() {
@@ -235,8 +290,8 @@ public class GUIView extends Application implements Observer {
     IPlayerListBuilder playerBuilder = new PlayerListBuilder();
     IPlayer Player1 = new HumanPlayer(1);
     IPlayer PlayerR1 = new RandomPlayer(2);
-    IPlayer PlayerR2 = new RandomPlayer(3);
-    IPlayer PlayerR3 = new RandomPlayer(4);
+    IPlayer PlayerR2 = new HumanPlayer(3);
+    IPlayer PlayerR3 = new HumanPlayer(4);
     playerBuilder.addPlayer(Player1);
     playerBuilder.addPlayer(PlayerR1);
     playerBuilder.addPlayer(PlayerR2);
@@ -246,10 +301,12 @@ public class GUIView extends Application implements Observer {
     return game;
   }
 
+
   public void updatePlayedCard() {
     DiscardView.setImage(new Image(GUIView.class
         .getResourceAsStream("/Images/UNOCards/" + game.getCurrentPlayedCard().getColor() + "/"
             + game.getCurrentPlayedCard().getSymbol() + ".png")));
+
   }
 
   public void updateCurrentStatus() {
@@ -278,45 +335,49 @@ public class GUIView extends Application implements Observer {
     JugadorActualName.setText(CurrentPlayer.toString());
     JugadorSigName.setText(NextPlayer.toString());
     JugadorAnteriorName.setText(LastPlayer.toString());
-      hhand.getChildren().clear();
-   // Cards in hand
-       if (CurrentPlayer.isHuman()) {
-       for (int i = 0; i < game.getCurrentPlayer().getHandSize(); i++) {
-         ICard Card=game.getCurrentPlayer().getCardFromHand(i);
-       Image CardImage = new Image(GUIView.class.getResourceAsStream(
-       "/Images/UNOCards/" + Card.getColor() + "/"
-       + Card.getSymbol() + ".png"));
-       ImageView CardView = new ImageView(CardImage);
-       CardView.setScaleX(CardScale);
-       CardView.setScaleY(CardScale);
-       CardView.setTranslateY(HandOffsetY);
-       CardView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,new CardHandler(Card,game,ctrl) );
-   
-       hhand.getChildren().add(CardView);
-       }
-      
-       }
-       else{
-         for (int i = 0; i < game.getCurrentPlayer().getHandSize(); i++) {
-           Image Card = new Image(GUIView.class.getResourceAsStream(
-           "/Images/UNOCards/NULL.png"));
-           ImageView CardView = new ImageView(Card);
-           CardView.setScaleX(CardScale);
-           CardView.setScaleY(CardScale);
-           CardView.setTranslateY(HandOffsetY);
-           hhand.getChildren().add(CardView);
-           }
-        
-       }
-      
+    DiscardText.setText(game.getCardManager().sizeofDiscard() + "Cards");
+    DeckText.setText(game.getCardManager().getDrawableCardsNumber()
+        - game.getCardManager().sizeofDiscard() + "Cards");
+    hhand.getChildren().clear();
+    hhand.setMinWidth(1790);
+
+    // Cards in hand
+    if (CurrentPlayer.isHuman()) {
+      for (int i = this.FirstCardIndex; i < Math.min(game.getCurrentPlayer().getHandSize(),
+          this.FirstCardIndex + 7); i++) {
+        ICard Card = game.getCurrentPlayer().getCardFromHand(i);
+        Image CardImage = new Image(GUIView.class.getResourceAsStream(
+            "/Images/UNOCards/" + Card.getColor() + "/" + Card.getSymbol() + ".png"));
+        ImageView CardView = new ImageView(CardImage);
+        CardView.setScaleX(CardScale);
+        CardView.setScaleY(CardScale);
+        CardView.setTranslateY(HandOffsetY);
+        CardView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+            new CardHandler(Card, game, ctrl));
+
+        hhand.getChildren().add(CardView);
+      }
+
+    } else {
+      for (int i = 0; i < game.getCurrentPlayer().getHandSize(); i++) {
+        Image Card = new Image(GUIView.class.getResourceAsStream("/Images/UNOCards/NULL.png"));
+        ImageView CardView = new ImageView(Card);
+        CardView.setScaleX(CardScale);
+        CardView.setScaleY(CardScale);
+        CardView.setTranslateY(HandOffsetY);
+        hhand.getChildren().add(CardView);
+      }
+
     }
 
-  
-  
+
+  }
+
+
 
   @Override
   public void update(Observable o, Object arg) {
-    GUIController ctrl = (GUIController) arg;
+    this.FirstCardIndex = 0;
     ctrl.playTurn();
 
   }

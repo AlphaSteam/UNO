@@ -11,6 +11,7 @@ import model.card.type.ICard;
 import model.player.IPlayerManager;
 import model.player.PlayerManager;
 import model.player.type.IPlayer;
+import view.GUIView;
 
 /**
  * Represents the complete game logic.
@@ -18,18 +19,19 @@ import model.player.type.IPlayer;
  * @author Sebastian Alfaro
  * 
  */
-public class GameLogic extends Observable implements IGameLogic  {
+public class GameLogic  extends AbstractGameLogic  {
   protected boolean ended = false;
   protected ICardPilesManager CardM;
   protected IPlayerManager PlayerM;
   protected int DrawWell = 0;
 
   public GameLogic(ArrayList<IPlayer> arrayList, ICardPile Deck) {
+    
     this.PlayerM = new PlayerManager(arrayList);
     this.CardM = new CardPilesManager(Deck);
     for (IPlayer player : this.PlayerM.getPlayers()) {
       if (CardM.getDrawableCardsNumber() >= 7) {
-        CardM.addCardsToPlayer(player, 7);
+        CardM.addCardsToPlayer(player, 20);
       }
     }
   }
@@ -123,12 +125,13 @@ public class GameLogic extends Observable implements IGameLogic  {
       this.getCurrentPlayer().removeCardFromHand(playedCard);
       playedCard.executeAction(this, ctrl);
       CardM.discard(playedCard);
+      setChanged();
+      notifyObservers(playedCard);
       if (getCurrentPlayer().getHandSize() == 0) {
         this.ended = true;
       }
       return true;
     } else {
-
       return false;
     }
   }
@@ -153,6 +156,8 @@ public class GameLogic extends Observable implements IGameLogic  {
   public ICardPilesManager getCardManager() {
    return this.CardM;
   }
+
+
 
 
 
