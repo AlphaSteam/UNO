@@ -9,26 +9,44 @@ import controller.RightButtonHandler;
 import controller.CardHandler;
 import controller.DeckHandler;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.GameLogic;
 import model.IGameLogic;
 import model.card.ICardPile;
 import model.card.deck.DeckBuilder;
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.player.IPlayerListBuilder;
 import model.player.PlayerListBuilder;
@@ -77,6 +95,8 @@ public class GUIView extends Application implements Observer {
   // DeckCards Text
   Text DeckText = new Text(game.getCardManager().getDrawableCardsNumber()
       - game.getCardManager().sizeofDiscard() + "Cards");
+  //Color
+  private COLOR color;
 
   @Override
   public void start(Stage primaryStage) {
@@ -249,10 +269,16 @@ public class GUIView extends Application implements Observer {
     Scene scene = new Scene(root, X, Y);
     Color c = Color.web("#2B2B2B", 0.7);
     scene.setFill(c);
+    Image bg = new Image(GUIView.class.getResourceAsStream("/Images/Background/bg.png"));
+    BackgroundImage bgImg = new BackgroundImage(bg, BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false));
+    Background bgf = new Background(bgImg);
+    root.setBackground(bgf);
     primaryStage.setMinWidth(X);
     primaryStage.setMinHeight(Y);
     primaryStage.setMaximized(true);
-    primaryStage.setTitle("JavaUNO");
+    primaryStage.setTitle("JavaUNO GUI");
     primaryStage.setScene(scene);
     primaryStage.show();
 
@@ -282,6 +308,72 @@ public class GUIView extends Application implements Observer {
 
   public void DecrementCardIndex(int x) {
     this.FirstCardIndex -= x;
+  }
+
+  public COLOR ChooseColorAlert() {
+    
+    // root(Group)
+    Group root = new Group();
+    //Scene
+    Scene scene = new Scene(root, 460, 200);
+    // Creating line object
+    Line line = new Line();
+    line.setStartX(0);
+    line.setStartY(80);
+    line.setEndX(700);
+    line.setEndY(80);
+
+    // Image (i)
+    Image i = new Image(GUIView.class.getResourceAsStream("/Images/InfoIcons/i.png"));
+    ImageView iView = new ImageView(i);
+    iView.setLayoutX(360);
+    iView.setLayoutY(0);
+    iView.setScaleX(0.6);
+    iView.setScaleY(0.6);
+    // Creating Text
+    Text action = new Text("Action Required");
+    action.setY(50);
+    action.setX(30);
+    action.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 22));
+    // Choose text
+    Text choose = new Text("Choose new color:");
+    choose.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 17));
+    choose.setY(141);
+    choose.setX(30);
+
+    // ChoiceBox for colors
+    ChoiceBox<String> colorBox = new ChoiceBox<String>();
+    colorBox.getItems().addAll("Red", "Green", "Blue", "Yellow");
+    colorBox.setLayoutX(200);
+    colorBox.setLayoutY(120);
+    colorBox.setMinWidth(180);
+    colorBox.getSelectionModel().select(0);
+
+    // Select Button
+    Button select = new Button("Select");
+    select.setLayoutX(380);
+    select.setLayoutY(170);
+    select.setStyle("-fx-padding: 5 12 5 12;");
+   
+
+
+
+    // Stage
+    root.getChildren().addAll(line, action, choose, colorBox, select, iView);
+    Stage stage = new Stage();
+    //Close Stage with select button
+    select.setOnAction(new EventHandler<ActionEvent>() {
+      @Override public void handle(ActionEvent e) {
+        stage.close();
+      }
+  });
+    stage.setResizable(false);
+    stage.setTitle("JavaUNO GUI");
+    stage.setScene(scene);
+    Color c = Color.web("#2B2B2B", 0);
+    scene.setFill(c);
+    stage.showAndWait();
+    return COLOR.valueOf(colorBox.getValue().toUpperCase());
   }
 
   public static IGameLogic MakeGame() {

@@ -14,7 +14,7 @@ import model.IGameLogic;
  *
  */
 public class CardRobar2 extends AbstractCard {
-  public CardRobar2(Color color) {
+  public CardRobar2(COLOR color) {
     this.color = color;
     this.symbol = Symbol.DRAW_TWO;
     this.discardable = true;

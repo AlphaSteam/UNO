@@ -17,10 +17,11 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.IGameLogic;
-import model.card.type.Color;
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.player.type.IPlayer;
 import view.GUIView;
@@ -36,36 +37,12 @@ public class GUIController implements IController {
   }
 
   @Override
-  public Color askForColor() {
-//    List<String> choices = new ArrayList<>();
-//    choices.add("Red");
-//    choices.add("Blue");
-//    choices.add("Green");
-//    ChoiceDialog<String> dialog = new ChoiceDialog<>("Red", choices);
-//    DialogPane dialogPane = dialog.getDialogPane();
-//    dialogPane.getStylesheets().add(
-//        getClass().getResource("myDialogs.css").toExternalForm());
-//     dialogPane.getStyleClass().add("myDialog");
-//    dialog.setTitle("Color Selection");
-//    dialog.setHeaderText("Action Required");
-//    dialog.setContentText("Choose new color:");
-//    Optional<String> result = dialog.showAndWait();
-//    
-//    if (result.isPresent()){
-//     return Color.valueOf(result.get().toUpperCase());
-//  }
-//    return null;
-    Stage stage = new Stage();
-    Group root=new Group();
-    stage.setTitle("Color Selection");
-    Scene scene=new Scene(root, 450, 450)
-    stage.setScene(scene);
-    Color c = Color.web("#2B2B2B", 0.7);
-    scene.setFill(c);
+  public COLOR askForColor() {
     
-    
-    stage.show();
-    return null;
+    return view.ChooseColorAlert();
+
+
+   
   }
 
   @Override
@@ -87,28 +64,26 @@ public class GUIController implements IController {
     System.out.println(game.getCurrentPlayedCard());
     updatePlayedCard();
     view.updateCurrentStatus();
-    PauseTransition pause = new PauseTransition(
-        Duration.seconds(1)
-    );
+    PauseTransition pause = new PauseTransition(Duration.seconds(1));
     pause.setOnFinished(event -> {
       updatePlayedCard();
       view.updateCurrentStatus();
     });
     pause.play();
-    
+
     IPlayer CurrentPlayer = game.getCurrentPlayer();
-    boolean Human=CurrentPlayer.isHuman();
+    boolean Human = CurrentPlayer.isHuman();
     if (!Human) {
-          
+
       System.out.println("BEEP BOP");
       // System.out.println("Empezo a esperar");
       // System.out.println("Termino");
-       boolean played=false;
-       while (played==false) {
-       //GUIController.Wait();
-      ICard card = game.getCurrentPlayer().getCardToPlay(game, this);
-       played= game.playCard(card, this);
-       }
+      boolean played = false;
+      while (played == false) {
+        // GUIController.Wait();
+        ICard card = game.getCurrentPlayer().getCardToPlay(game, this);
+        played = game.playCard(card, this);
+      }
     }
 
   }

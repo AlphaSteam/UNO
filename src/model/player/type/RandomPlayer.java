@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import controller.IController;
 import model.IGameLogic;
-import model.card.type.Color;
+import model.card.type.COLOR;
 import model.card.type.DrawCard;
 import model.card.type.ICard;
 
@@ -46,16 +46,16 @@ public class RandomPlayer extends AbstractPlayer {
   }
 
   @Override
-  public Color selectColor(IGameLogic game, IController ctrl) {
+  public COLOR selectColor(IGameLogic game, IController ctrl) {
     int C = (int) ((Math.random() * 4) + 1);
     if (C == 1) {
-      return Color.BLUE;
+      return COLOR.BLUE;
     } else if (C == 2) {
-      return Color.GREEN;
+      return COLOR.GREEN;
     } else if (C == 3) {
-      return Color.RED;
+      return COLOR.RED;
     } else {
-      return Color.YELLOW;
+      return COLOR.YELLOW;
     }
   }
 

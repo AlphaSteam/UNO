@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @author eriveros
  *
  */
-public enum Color {
+public enum COLOR {
   NONE("Sin Color"), BLUE("Azul"), GREEN("Verde"), RED("Rojo"), YELLOW("Amarillo");
 
   private String name;
@@ -19,7 +19,7 @@ public enum Color {
    * 
    * @param name
    */
-  Color(String name) {
+  COLOR(String name) {
     this.name = name;
   }
 
@@ -37,7 +37,7 @@ public enum Color {
    * 
    * @return all the available colors (Without <i>colorless</i> color)
    */
-  public static Color[] getColors() {
-    return Arrays.copyOfRange(Color.values(), 1, 5);
+  public static COLOR[] getColors() {
+    return Arrays.copyOfRange(COLOR.values(), 1, 5);
   }
 }

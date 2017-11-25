@@ -15,7 +15,7 @@ import model.card.ICardPile;
 import model.card.deck.DeckBuilder;
 import model.card.type.CardNum;
 import model.card.type.CardRobar2;
-import model.card.type.Color;
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.card.type.Symbol;
 import model.player.IPlayerListBuilder;
@@ -44,7 +44,7 @@ public class GameLogicTest {
     playerBuilder.addPlayer(Player3);
     ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();
     for (int i = 0; i < 30; i++) {
-      Deck.pushCard(new CardNum(Color.GREEN, Symbol.ONE));
+      Deck.pushCard(new CardNum(COLOR.GREEN, Symbol.ONE));
     }
     game = new GameLogic(AL, Deck);
     ctrl = new NullController(game);
@@ -54,9 +54,9 @@ public class GameLogicTest {
   @Test
   public void playCardTest() {
 
-    ICard Numero2 = new CardNum(Color.GREEN, Symbol.ONE);
+    ICard Numero2 = new CardNum(COLOR.GREEN, Symbol.ONE);
     assertTrue(game.playCard(Numero2, ctrl));
-    ICard Numero3 = new CardNum(Color.RED, Symbol.EIGHT);
+    ICard Numero3 = new CardNum(COLOR.RED, Symbol.EIGHT);
     assertFalse(game.playCard(Numero3, ctrl));
 
 
@@ -77,14 +77,14 @@ public class GameLogicTest {
   @Test
   public void IsDrawWellEmptyTest() {
     assertTrue(game.isDrawWellEmpty());
-    game.playCard(new CardRobar2(Color.GREEN), ctrl);
+    game.playCard(new CardRobar2(COLOR.GREEN), ctrl);
     assertFalse(game.isDrawWellEmpty());
 
   }
 
   @Test
   public void drawCardsFromWellTest() {
-    game.playCard(new CardRobar2(Color.GREEN), ctrl);
+    game.playCard(new CardRobar2(COLOR.GREEN), ctrl);
     game.drawCardsFromWell(game.getCurrentPlayer(), ctrl);
     assertEquals(game.getCurrentPlayer().getHandSize(), 9);
   }
@@ -107,7 +107,7 @@ public class GameLogicTest {
     game.autoShoutUNO(ctrl);
     assertTrue(game.getCurrentPlayer().hasSaidUNO());
     ArrayList<ICard> hand = new ArrayList<ICard>();
-    hand.add(new CardNum(Color.BLUE, Symbol.DRAW_TWO));
+    hand.add(new CardNum(COLOR.BLUE, Symbol.DRAW_TWO));
     game.getCurrentPlayer().addToHand(hand);
     assertEquals(game.getCurrentPlayer().getHandSize(), 2);
     game.autoShoutUNO(ctrl);
@@ -149,7 +149,7 @@ public class GameLogicTest {
   
   @Test
   public void StartTurn(){
-    game.playCard(new CardRobar2(Color.GREEN), ctrl);
+    game.playCard(new CardRobar2(COLOR.GREEN), ctrl);
     assertFalse(game.isDrawWellEmpty());
     game.startTurn(ctrl);
     assertEquals(Player2.getHandSize(),9);

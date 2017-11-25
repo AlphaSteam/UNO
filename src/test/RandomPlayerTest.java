@@ -8,7 +8,7 @@ import model.IGameLogic;
 import model.card.ICardPile;
 import model.card.deck.DeckBuilder;
 import model.card.type.CardNum;
-import model.card.type.Color;
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.card.type.Symbol;
 import model.player.IPlayerListBuilder;
@@ -46,23 +46,23 @@ public class RandomPlayerTest {
     hand=new ArrayList<ICard>();
     ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();
     for (int i = 0; i < 3; i++) {
-      Deck.pushCard(new CardNum(Color.GREEN, Symbol.ONE));
+      Deck.pushCard(new CardNum(COLOR.GREEN, Symbol.ONE));
     }
     for (int i = 0; i < 3; i++) {
-      hand.add(new CardNum(Color.GREEN, Symbol.ONE));
+      hand.add(new CardNum(COLOR.GREEN, Symbol.ONE));
     }
-    hand.add(new CardNum(Color.RED, Symbol.FOUR));
+    hand.add(new CardNum(COLOR.RED, Symbol.FOUR));
     game = new GameLogic(AL, Deck);
     ctrl = new NullController(game);
     game.startTurn(ctrl);
   }
   @Test
   public void getCardToPlayTest(){
-    ICard CartaDistinta=new CardNum(Color.YELLOW, Symbol.SEVEN);
+    ICard CartaDistinta=new CardNum(COLOR.YELLOW, Symbol.SEVEN);
     Player1.addToHand(hand);
     game.playCard(CartaDistinta, ctrl);
     Player1.getCardToPlay(game, ctrl);
-    game.playCard(new CardNum(Color.GREEN, Symbol.ONE), ctrl);
+    game.playCard(new CardNum(COLOR.GREEN, Symbol.ONE), ctrl);
     Player1.getCardToPlay(game, ctrl);
     Player2.getCardToPlay(game, ctrl);
   }

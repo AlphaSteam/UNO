@@ -13,7 +13,7 @@ import model.IGameLogic;
  *
  */
 public class CardSaltar extends AbstractCard {
-  public CardSaltar(Color color) {
+  public CardSaltar(COLOR color) {
     this.color = color;
     this.symbol = Symbol.SKIP;
     this.discardable = true;

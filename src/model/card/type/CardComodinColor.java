@@ -15,7 +15,7 @@ import model.IGameLogic;
  */
 public class CardComodinColor extends AbstractCard {
   public CardComodinColor() {
-    this.color = Color.NONE;
+    this.color = COLOR.NONE;
     this.symbol = Symbol.WILD;
     this.discardable = true;
   }

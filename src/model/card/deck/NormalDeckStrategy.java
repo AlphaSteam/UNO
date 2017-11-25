@@ -10,7 +10,7 @@ import model.card.type.CardInvertir;
 import model.card.type.CardNum;
 import model.card.type.CardRobar2;
 import model.card.type.CardSaltar;
-import model.card.type.Color;
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.card.type.Symbol;
 
@@ -27,31 +27,31 @@ public class NormalDeckStrategy implements IDeckStrategy {
   public ICardPile createDeck() {
     {
       ICardPile Deck = new CardPile();
-      for (Color col : Color.getColors()) {
+      for (COLOR col : COLOR.getColors()) {
         for (Symbol sym : Symbol.getNumeric()) {
           ICard newCard = new CardNum(col, sym);
           Deck.pushCard(newCard);
         }
       }
-      for (Color col : Color.getColors()) {
+      for (COLOR col : COLOR.getColors()) {
         for (Symbol sym : Arrays.copyOfRange(Symbol.values(), 1, 10)) {
           ICard newCard = new CardNum(col, sym);
           Deck.pushCard(newCard);
         }
       }
-      for (Color col : Color.getColors()) {
+      for (COLOR col : COLOR.getColors()) {
         ICard newCard = new CardSaltar(col);
         ICard newCard2 = new CardSaltar(col);
         Deck.pushCard(newCard);
         Deck.pushCard(newCard2);
       }
-      for (Color col : Color.getColors()) {
+      for (COLOR col : COLOR.getColors()) {
         ICard newCard = new CardInvertir(col);
         ICard newCard2 = new CardInvertir(col);
         Deck.pushCard(newCard);
         Deck.pushCard(newCard2);
       }
-      for (Color col : Color.getColors()) {
+      for (COLOR col : COLOR.getColors()) {
         ICard newCard = new CardRobar2(col);
         ICard newCard2 = new CardRobar2(col);
         Deck.pushCard(newCard);

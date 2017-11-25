@@ -1,6 +1,6 @@
 package controller;
 
-import model.card.type.Color;
+import model.card.type.COLOR;
 import model.player.type.IPlayer;
 
 /**
@@ -16,7 +16,7 @@ public interface IController {
    * 
    * @return a color
    */
-  public Color askForColor();
+  public COLOR askForColor();
 
   /**
    * Asks for a card from hand to a player.

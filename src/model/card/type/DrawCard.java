@@ -15,7 +15,7 @@ import model.IGameLogic;
  */
 public class DrawCard extends AbstractCard {
   public DrawCard() {
-    this.color = Color.NONE;
+    this.color = COLOR.NONE;
     this.symbol = Symbol.NONE;
     this.discardable = false;
   }

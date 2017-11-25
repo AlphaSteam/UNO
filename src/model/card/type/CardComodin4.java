@@ -15,7 +15,7 @@ import model.IGameLogic;
  */
 public class CardComodin4 extends AbstractCard {
   public CardComodin4() {
-    this.color = Color.NONE;
+    this.color = COLOR.NONE;
     this.symbol = Symbol.WILD_DRAW_FOUR;
     this.discardable = true;
   }

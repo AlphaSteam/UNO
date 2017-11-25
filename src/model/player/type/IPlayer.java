@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import controller.IController;
 import model.IGameLogic;
-import model.card.type.Color;
+import model.card.type.COLOR;
 import model.card.type.ICard;
 
 /**
@@ -44,7 +44,7 @@ public interface IPlayer {
    * @param ctrl actual controller
    * @return a color selected by the player
    */
-  Color selectColor(IGameLogic game, IController ctrl);
+  COLOR selectColor(IGameLogic game, IController ctrl);
 
   /**
    * Returns the number of cards in the hand of the player.

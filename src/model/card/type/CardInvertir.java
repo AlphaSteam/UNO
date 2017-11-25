@@ -15,7 +15,7 @@ import model.IGameLogic;
  *
  */
 public class CardInvertir extends AbstractCard {
-  public CardInvertir(Color color) {
+  public CardInvertir(COLOR color) {
     this.color = color;
     this.symbol = Symbol.INVERT;
     this.discardable = true;

@@ -31,7 +31,7 @@ public interface ICard {
    * 
    * @return the card's color
    */
-  Color getColor();
+  COLOR getColor();
 
   /**
    * Returns the symbol in the card (Number or action in special colored cards)

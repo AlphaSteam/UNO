@@ -9,14 +9,14 @@ package model.card.type;
  *
  */
 public abstract class AbstractCard implements ICard {
-  protected Color color;
+  protected COLOR color;
   protected Symbol symbol;
   protected boolean discardable;
 
   @Override
   public boolean isPlayableOver(ICard otherCard) {
     if ((otherCard.getColor() == this.color) || (otherCard.getSymbol() == this.symbol)
-        || (this.color == Color.NONE)) {
+        || (this.color == COLOR.NONE)) {
       return true;
     } else {
       return false;
@@ -25,7 +25,7 @@ public abstract class AbstractCard implements ICard {
 
   @Override
   public boolean isFirstPlayable() {
-    if (this.color != Color.NONE) {
+    if (this.color != COLOR.NONE) {
       return true;
     } else {
       return false;
@@ -33,7 +33,7 @@ public abstract class AbstractCard implements ICard {
   }
 
   @Override
-  public Color getColor() {
+  public COLOR getColor() {
     return color;
   }
 

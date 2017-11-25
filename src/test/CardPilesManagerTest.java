@@ -20,7 +20,7 @@ public class CardPilesManagerTest {
   DeckBuilder DB = new DeckBuilder();
   DB.SetTestStrategy();
   Deck = DB.createDeck();
-  carta = new CardNum(model.card.type.Color.GREEN, model.card.type.Symbol.ONE);
+  carta = new CardNum(model.card.type.COLOR.GREEN, model.card.type.Symbol.ONE);
   Deck.pushCard(new CardComodin4());
   Deck.pushCard(carta);
 
@@ -30,10 +30,10 @@ public class CardPilesManagerTest {
   public void DrawCardsTest(){
   CPM=new CardPilesManager(Deck);
   assertEquals(CPM.getDrawableCardsNumber(),1);
-  CPM.discard(new CardNum(model.card.type.Color.GREEN, model.card.type.Symbol.ONE));
-  CPM.discard(new CardNum(model.card.type.Color.GREEN, model.card.type.Symbol.ONE));
-  CPM.discard(new CardNum(model.card.type.Color.GREEN, model.card.type.Symbol.ONE));
-  CPM.discard(new CardNum(model.card.type.Color.GREEN, model.card.type.Symbol.ONE));
+  CPM.discard(new CardNum(model.card.type.COLOR.GREEN, model.card.type.Symbol.ONE));
+  CPM.discard(new CardNum(model.card.type.COLOR.GREEN, model.card.type.Symbol.ONE));
+  CPM.discard(new CardNum(model.card.type.COLOR.GREEN, model.card.type.Symbol.ONE));
+  CPM.discard(new CardNum(model.card.type.COLOR.GREEN, model.card.type.Symbol.ONE));
   assertEquals(CPM.getDrawableCardsNumber(),5);
   assertEquals(Deck.getSize(),1);
   assertEquals(CPM.drawCards(3).size(),3);
@@ -49,7 +49,7 @@ public class CardPilesManagerTest {
   @Test
   public void DiscardTest(){
     CPM=new CardPilesManager(Deck);
-    CPM.discard(new CardNum(model.card.type.Color.GREEN, model.card.type.Symbol.ONE));
+    CPM.discard(new CardNum(model.card.type.COLOR.GREEN, model.card.type.Symbol.ONE));
     assertEquals(CPM.getDrawableCardsNumber(),2);
     CPM.discard(new NullCard());
     assertEquals(CPM.getDrawableCardsNumber(),2);

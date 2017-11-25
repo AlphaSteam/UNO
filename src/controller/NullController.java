@@ -3,7 +3,7 @@ package controller;
 import java.util.Scanner;
 
 import model.IGameLogic;
-import model.card.type.Color;
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.player.type.IPlayer;
 
@@ -42,9 +42,9 @@ public class NullController implements IController {
   }
 
   @Override
-  public Color askForColor() {
+  public COLOR askForColor() {
     int i = 0;
-    for (Color color : Color.getColors()) {
+    for (COLOR color : COLOR.getColors()) {
       System.out.println("" + i + ") " + color.getName());
       i++;
     }
@@ -53,7 +53,7 @@ public class NullController implements IController {
       System.out.println("Por favor, ingresar un número entre el 0 y el 3.");
       num = in.nextInt();
     }
-    return Color.getColors()[num];
+    return COLOR.getColors()[num];
   }
 
   @Override

@@ -18,7 +18,7 @@ import model.card.type.CardComodinColor;
 import model.card.type.CardInvertir;
 import model.card.type.CardNum;
 import model.card.type.CardSaltar;
-import model.card.type.Color;
+import model.card.type.COLOR;
 import model.card.type.DrawCard;
 import model.card.type.ICard;
 import model.card.type.Symbol;
@@ -48,7 +48,7 @@ public class CardsTests {
     playerBuilder.addPlayer(Player3);
     ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();
     for (int i = 0; i < 30; i++) {
-      Deck.pushCard(new CardNum(Color.GREEN, Symbol.ONE));
+      Deck.pushCard(new CardNum(COLOR.GREEN, Symbol.ONE));
     }
     game = new GameLogic(AL, Deck);
     ctrl = new NullController(game);
@@ -85,7 +85,7 @@ assertEquals(game.getCurrentPlayer().getHandSize(),11);
 
   @Test
   public void InvertDirectionCardTest() {
-    ICard Invertir=new CardInvertir(Color.GREEN);
+    ICard Invertir=new CardInvertir(COLOR.GREEN);
     assertEquals(game.getCurrentPlayer(),Player1);
     game.playCard(Invertir, ctrl);
     game.startTurn(ctrl);
@@ -98,7 +98,7 @@ assertEquals(game.getCurrentPlayer().getHandSize(),11);
   }
   @Test
   public void SkipPlayerTest() {
-    ICard Saltar=new CardSaltar(Color.GREEN);
+    ICard Saltar=new CardSaltar(COLOR.GREEN);
     assertEquals(game.getCurrentPlayer(),Player1);
     game.playCard(Saltar, ctrl);
     game.startTurn(ctrl);

@@ -14,7 +14,7 @@ import model.IGameLogic;
  *
  */
 public class CardNum extends AbstractCard {
-  public CardNum(Color color, Symbol symbol) {
+  public CardNum(COLOR color, Symbol symbol) {
     this.color = color;
     this.symbol = symbol;
     this.discardable = true;
