@@ -96,6 +96,12 @@ public class ConsoleController extends Observable implements IController {
     
   }
 
+  @Override
+  public void announceWinner() {
+    // TODO Auto-generated method stub
+    
+  }
+
 
 
 }

@@ -48,6 +48,8 @@ public interface IController {
    * Updates the played card in the view.
    */
   void updatePlayedCard();
-
-
+  /**
+   * Annonunces Winner
+   */
+  void announceWinner();
 }

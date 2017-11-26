@@ -46,23 +46,11 @@ public class GUIController implements IController {
     System.out.println(game.getCurrentPlayedCard());
     updatePlayedCard();
     view.updateCurrentStatus();
-    PauseTransition pause = new PauseTransition(Duration.seconds(1));
-    pause.setOnFinished(event -> {
-      updatePlayedCard();
-      view.updateCurrentStatus();
-    });
-    pause.play();
-
     IPlayer CurrentPlayer = game.getCurrentPlayer();
     boolean Human = CurrentPlayer.isHuman();
     if (!Human) {
-
-      System.out.println("BEEP BOP");
-      // System.out.println("Empezo a esperar");
-      // System.out.println("Termino");
       boolean played = false;
       while (played == false) {
-        // GUIController.Wait();
         ICard card = game.getCurrentPlayer().getCardToPlay(game, this);
         played = game.playCard(card, this);
       }
@@ -75,6 +63,11 @@ public class GUIController implements IController {
   public void updatePlayedCard() {
     view.updatePlayedCard();
 
+  }
+  @Override
+  public void announceWinner() {
+   view.WinnerAlert();
+    
   }
 
 

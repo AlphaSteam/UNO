@@ -2,7 +2,6 @@ package controller;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import model.IGameLogic;
 import view.GUIView;
 
 public class PlayerListHandler implements EventHandler<Event>{
@@ -12,7 +11,6 @@ public PlayerListHandler(GUIView view){
 }
 @Override
 public void handle(Event event) {
-  System.out.println("Player's List");
    view.PlayerList();
    event.consume();
    

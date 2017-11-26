@@ -11,6 +11,7 @@ import controller.CardHandler;
 import controller.DeckHandler;
 import controller.ExitWindow;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,7 +33,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -267,9 +267,9 @@ public class GUIView extends Application implements Observer {
     GridPane.setHalignment(P3V, HPos.CENTER);
     GridPane.setHalignment(NextCards, HPos.CENTER);
     gp.setAlignment(Pos.CENTER);
-    // gp.setGridLinesVisible(true);
+    //gp.setGridLinesVisible(true);
     root.setTop(gp);
-
+    
 
     // Create GridPane Two
     GridPane gp2 = new GridPane();
@@ -288,7 +288,7 @@ public class GUIView extends Application implements Observer {
     RowConstraints cc2 = new RowConstraints();
     cc2.setMaxHeight(DiscardView.getScaleX());
     gp2.getRowConstraints().addAll(cc, cc2);
-    gp2.setGridLinesVisible(true);
+    //gp2.setGridLinesVisible(true);
 
     // Create AnchorPane
     AnchorPane center = new AnchorPane(gp2);
@@ -420,18 +420,47 @@ public class GUIView extends Application implements Observer {
     root.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
     //Font
     Font Josefin = Font
-        .loadFont(GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 20);
-    //VBox
-    VBox vbox =new VBox();
+        .loadFont(GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 30);
+    //Group
+    Group group=new Group();
     ArrayList<IPlayer> players=game.getPlayers();
     for(int i=0;i<players.size();i++){
-      Text player =new Text(players.get(i).toString());
-      player.setTranslateY(i*20);
-      player.setFont(Josefin);
-      vbox.getChildren().add(player);
+      //Hbox that contains each player
+      HBox hbox=new HBox();
+      //Player
+      IPlayer player=players.get(i);
+      //Player Portrait
+      Image playerImage=Human;
+      ImageView playerImgView=new ImageView(playerImage);
+      if (player.isHuman()) {
+        playerImgView.setImage(Human);
+      } else {
+        playerImgView.setImage(Robot);
+      }
+      playerImgView.setScaleX(0.4);
+      playerImgView.setScaleY(0.4);
+      //playerImgView.setY(i*75);
+      //Player Name
+      Text playerTxt =new Text(player.toString());
+      playerTxt.setFont(Josefin);
+     
+      hbox.getChildren().addAll(playerImgView,playerTxt);
+      hbox.setTranslateY(100*i);
+      hbox.setAlignment(Pos.CENTER);
+      //Player Number of cards
+      Text nCards =new Text(" "+player.getHandSize()+" cards");
+      nCards.setFont(Josefin);
+      nCards.setY(hbox.getTranslateY()+86);
+      nCards.setX(340);
+      //nCards.setX(140);
+      
+      group.getChildren().addAll(hbox,nCards);
+  
     }
+    group.setTranslateY(-10);
+    group.setTranslateX(-30);
     // Scene
-    root.setContent(vbox);
+    root.setContent(group);
     Scene scene = new Scene(root, 500, 700);
     Stage stage = new Stage();
     stage.setResizable(false);
@@ -554,19 +583,78 @@ public class GUIView extends Application implements Observer {
     stage.showAndWait();
 
   }
+  public void WinnerAlert() {
+
+    // root(Group)
+    Group root = new Group();
+    // Scene
+    Scene scene = new Scene(root, 460, 200);
+    // Creating line object
+    Line line = new Line();
+    line.setStartX(0);
+    line.setStartY(80);
+    line.setEndX(700);
+    line.setEndY(80);
+
+    // Image (i)
+    Image i = new Image(GUIView.class.getResourceAsStream("/Images/InfoIcons/Winner.png"));
+    ImageView iView = new ImageView(i);
+    iView.setLayoutX(220);
+    iView.setLayoutY(-10);
+    iView.setScaleX(0.4);
+    iView.setScaleY(0.4);
+    // Creating Text
+    Text action = new Text("WINNER!");
+    action.setY(50);
+    action.setX(30);
+    action.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 26));
+    // Choose text
+    Text choose = new Text(game.getLastPlayer() + " wins the game!\nCongratulations :D");
+    choose.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 17));
+    choose.setY(141);
+    choose.setX(30);
+
+    // Stage
+    root.getChildren().addAll(line, action, choose, iView);
+    Stage stage = new Stage();
+    // Close Stage with select button
+    stage.setResizable(false);
+    stage.setTitle("JavaUNO GUI-WINNER!");
+    stage.setScene(scene);
+    stage.setOnCloseRequest(e -> Platform.exit());
+    Color c = Color.web("#2B2B2B", 0);
+    scene.setFill(c);
+    stage.showAndWait();
+    
+
+  }
 
   public static IGameLogic MakeGame() {
     DeckBuilder DB = new DeckBuilder();
     ICardPile Deck = DB.createDeck();
     IPlayerListBuilder playerBuilder = new PlayerListBuilder();
-    IPlayer Player1 = new HumanPlayer(1);
-    IPlayer PlayerR1 = new RandomPlayer(2);
-    IPlayer PlayerR2 = new HumanPlayer(3);
-    IPlayer PlayerR3 = new HumanPlayer(4);
+    IPlayer Player1 = new HumanPlayer("Seba");
+    IPlayer PlayerR1 = new RandomPlayer("R2D2");
+    IPlayer PlayerR2 = new HumanPlayer("Cris");
+    IPlayer PlayerR3 = new RandomPlayer("Bender");
+    IPlayer PlayerR4 = new RandomPlayer("UNOBOT");
+    IPlayer franco = new HumanPlayer("Franco");
+    IPlayer juan = new HumanPlayer("Juan");
+    IPlayer marco = new HumanPlayer("Marco");
+    IPlayer matilde = new HumanPlayer("Matilde");
+    playerBuilder.addPlayer(franco);
+    playerBuilder.addPlayer(juan);
+    playerBuilder.addPlayer(marco);
+    playerBuilder.addPlayer(matilde);
     playerBuilder.addPlayer(Player1);
     playerBuilder.addPlayer(PlayerR1);
     playerBuilder.addPlayer(PlayerR2);
     playerBuilder.addPlayer(PlayerR3);
+    playerBuilder.addPlayer(PlayerR4);
+    for(int i=0;i<3;i++){
+      IPlayer player = new RandomPlayer(i);
+      playerBuilder.addPlayer(player);
+    }
     ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();
     IGameLogic game = new GameLogic(AL, Deck);
     return game;
@@ -651,11 +739,13 @@ public class GUIView extends Application implements Observer {
 
   @Override
   public void update(Observable o, Object arg) {
-    if ((Boolean) arg) {
+    if ((Boolean)arg) {
       this.FirstCardIndex = 0;
       ctrl.playTurn();
     } else {
+      if(this.CurrentPlayer.isHuman()){
       this.PlayError();
+      }
     }
 
   }

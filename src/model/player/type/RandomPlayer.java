@@ -14,12 +14,23 @@ import model.card.type.ICard;
  *
  */
 public class RandomPlayer extends AbstractPlayer {
-  int i = 0;
-  ArrayList<ICard> Playable = new ArrayList<ICard>();
+  private int i = 0;
+  private boolean Numbered;
+  private String s;
+  private ArrayList<ICard> Playable = new ArrayList<ICard>();
 
   public RandomPlayer(int i) {
     this.i = i;
     this.human=false;
+    this.Numbered=true;
+  }
+  public RandomPlayer(String s) {
+    if (s.length() > 8) {
+      s = s.substring(0, 8);
+    }
+    this.s=s;
+    this.human=false;
+    this.Numbered=false;
   }
 
   @Override
@@ -39,7 +50,13 @@ public class RandomPlayer extends AbstractPlayer {
 
   @Override
   public String toString() {
-    String result = "Player " + this.i;
+    String result; 
+    if(this.Numbered){
+    result= "Player " + this.i;
+    }
+    else{
+      result=s;
+    }
     return result;
   }
 

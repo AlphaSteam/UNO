@@ -82,6 +82,12 @@ public class NullController implements IController {
     
   }
 
+  @Override
+  public void announceWinner() {
+    // TODO Auto-generated method stub
+    
+  }
+
 
 
 }

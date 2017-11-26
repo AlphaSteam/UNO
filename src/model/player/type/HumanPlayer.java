@@ -14,10 +14,22 @@ import model.card.type.ICard;
  */
 public class HumanPlayer extends AbstractPlayer {
   protected int i;
+  protected String s;
+  protected boolean Numbered;
 
   public HumanPlayer(int i) {
     this.i = i;
-    this.human=true;
+    this.human = true;
+    this.Numbered = true;
+  }
+
+  public HumanPlayer(String s) {
+    if (s.length() > 8) {
+      s = s.substring(0, 8);
+    }
+    this.human = true;
+    this.s = s;
+    this.Numbered = false;
   }
 
   @Override
@@ -34,7 +46,12 @@ public class HumanPlayer extends AbstractPlayer {
 
   @Override
   public String toString() {
-    String result = "Player " + this.i;
+    String result;
+    if (this.Numbered) {
+      result = "Player " + this.i;
+    } else {
+      result = this.s;
+    }
     return result;
   }
 
