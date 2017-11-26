@@ -1,8 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Observable;
-
 import controller.IController;
 import model.card.CardPilesManager;
 import model.card.ICardPile;
@@ -11,7 +9,6 @@ import model.card.type.ICard;
 import model.player.IPlayerManager;
 import model.player.PlayerManager;
 import model.player.type.IPlayer;
-import view.GUIView;
 
 /**
  * Represents the complete game logic.
@@ -41,7 +38,11 @@ public class GameLogic  extends AbstractGameLogic  {
     return ended;
     
   }
-
+  @Override
+  public ArrayList<IPlayer> getPlayers() {
+    return PlayerM.getPlayers();
+    
+  }
   @Override
   public IPlayer getCurrentPlayer() {
     return PlayerM.getCurrentPlayer();
@@ -64,9 +65,9 @@ public class GameLogic  extends AbstractGameLogic  {
 
   @Override
   public void autoShoutUNO(IController ctrl) {
-    if ((this.getCurrentPlayer().hasOneCard()) && (!this.getCurrentPlayer().hasSaidUNO())) {
-      ctrl.showMessage("UNO!");
-      getCurrentPlayer().setSaidUNO(true);
+    if ((this.getLastPlayer().hasOneCard()) && (!this.getLastPlayer().hasSaidUNO())) {
+      ctrl.SayUNO();
+      this.getLastPlayer().setSaidUNO(true);
     }
   }
 
@@ -126,12 +127,14 @@ public class GameLogic  extends AbstractGameLogic  {
       playedCard.executeAction(this, ctrl);
       CardM.discard(playedCard);
       setChanged();
-      notifyObservers(playedCard);
+      notifyObservers(true);
       if (getCurrentPlayer().getHandSize() == 0) {
         this.ended = true;
       }
       return true;
     } else {
+      setChanged();
+      notifyObservers(false);
       return false;
     }
   }
@@ -156,6 +159,8 @@ public class GameLogic  extends AbstractGameLogic  {
   public ICardPilesManager getCardManager() {
    return this.CardM;
   }
+
+  
 
 
 

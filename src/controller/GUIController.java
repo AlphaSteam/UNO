@@ -1,24 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
-
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.IGameLogic;
 import model.card.type.COLOR;
@@ -35,14 +17,13 @@ public class GUIController implements IController {
     this.view = view;
     game.getCurrentPlayedCard().executeAction(game, this);
   }
+  public void SayUNO(){
+    view.UNOAlert();
+  }
 
   @Override
   public COLOR askForColor() {
-    
     return view.ChooseColorAlert();
-
-
-   
   }
 
   @Override
@@ -51,9 +32,10 @@ public class GUIController implements IController {
 
   }
 
+  
   @Override
   public void showMessage(String message) {
-    // TODO Auto-generated method stub
+    return;
 
   }
 
@@ -88,14 +70,6 @@ public class GUIController implements IController {
 
   }
 
-  public static void Wait() {
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
 
   @Override
   public void updatePlayedCard() {

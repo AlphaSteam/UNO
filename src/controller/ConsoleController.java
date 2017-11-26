@@ -90,6 +90,12 @@ public class ConsoleController extends Observable implements IController {
     view.updatePlayedCard();
   }
 
+  @Override
+  public void SayUNO() {
+    // TODO Auto-generated method stub
+    
+  }
+
 
 
 }

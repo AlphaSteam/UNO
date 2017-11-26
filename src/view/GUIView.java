@@ -5,14 +5,12 @@ import java.util.Observable;
 import java.util.Observer;
 import controller.GUIController;
 import controller.LeftButtonHandler;
+import controller.PlayerListHandler;
 import controller.RightButtonHandler;
 import controller.CardHandler;
 import controller.DeckHandler;
+import controller.ExitWindow;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,9 +18,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.effect.BlendMode;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -41,7 +41,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.GameLogic;
 import model.IGameLogic;
 import model.card.ICardPile;
@@ -90,17 +89,24 @@ public class GUIView extends Application implements Observer {
   private int HandOffsetY = -100;
   private double ButtonsScaleY = 1.2;
   private int FirstCardIndex = 0;
+  // LastPlayerCards
+  Text LastCards = new Text("x Cards");
+  // CurrentPlayerCards
+  Text CurrentCards = new Text("x Cards");
+  // NextPlayerCards
+  Text NextCards = new Text("x Cards");
   // DiscardCards Text
   Text DiscardText = new Text(game.getCardManager().sizeofDiscard() + "Cards");
   // DeckCards Text
   Text DeckText = new Text(game.getCardManager().getDrawableCardsNumber()
       - game.getCardManager().sizeofDiscard() + "Cards");
-  //Color
-  private COLOR color;
+
+
 
   @Override
   public void start(Stage primaryStage) {
     game.addObserver(this);
+    
     // Create root BorderPane
     BorderPane root = new BorderPane();
     // Creacion de Textos
@@ -113,16 +119,36 @@ public class GUIView extends Application implements Observer {
     JugadorActualName.setFont(Josefin);
     JugadorActualName.setScaleX(0.6 * TurnScale);
     JugadorActualName.setScaleY(0.6 * TurnScale);
+    // Text Jugador Actual Cards
+    CurrentCards.setFont(Josefin);
+    CurrentCards.setScaleX(0.5);
+    CurrentCards.setScaleY(0.5);
+    CurrentCards.setTextAlignment(TextAlignment.CENTER);
+    CurrentCards.setTranslateY(-20);
     // Text JugadorAnteriorName = new Text(LastPlayer.toString());
     JugadorAnteriorName.setFont(Josefin);
     JugadorAnteriorName.setScaleX(0.5 * TurnScale);
     JugadorAnteriorName.setScaleY(0.5 * TurnScale);
     JugadorAnteriorName.setTranslateX(offset * -1 * (1 / TurnScale));
+    // Text Jugador Anterior Cards
+    LastCards.setFont(Josefin);
+    LastCards.setScaleX(0.4);
+    LastCards.setScaleY(0.4);
+    LastCards.setTextAlignment(TextAlignment.CENTER);
+    LastCards.setTranslateX(offset * -1);
+    LastCards.setTranslateY(-20);
     // Text JugadorSigName = new Text(NextPlayer.toString());
     JugadorSigName.setFont(Josefin);
     JugadorSigName.setScaleX(0.5 * TurnScale);
     JugadorSigName.setScaleY(0.5 * TurnScale);
     JugadorSigName.setTranslateX(offset * (1 / TurnScale));
+    // Text Jugador Siguiente Cards
+    NextCards.setFont(Josefin);
+    NextCards.setScaleX(0.4);
+    NextCards.setScaleY(0.4);
+    NextCards.setTextAlignment(TextAlignment.CENTER);
+    NextCards.setTranslateX(offset * 1);
+    NextCards.setTranslateY(-20);
     // Jugador anterior
     Text JugadorAnteriorTxt = new Text("Last\nPlayer");
     JugadorAnteriorTxt.setFont(Josefin);
@@ -158,6 +184,7 @@ public class GUIView extends Application implements Observer {
     JugadorSigTxt.setScaleY(scaleSec * TurnScale);
     JugadorSigTxt.setTranslateY(offsetY + 2 * (1 / TurnScale));
     JugadorSigTxt.setTranslateX((offset - 2) * (1 / TurnScale));
+
     // DiscardText
     DiscardText.setFont(Font.loadFont(
         GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 30));
@@ -202,6 +229,8 @@ public class GUIView extends Application implements Observer {
     RightView.setScaleY(ButtonsScaleY);
     RightView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         new RightButtonHandler(this, game));
+   
+
 
     // Hbox for cards in hand
     hhand.setPadding(new Insets(15, 12, 15, 12));
@@ -214,34 +243,40 @@ public class GUIView extends Application implements Observer {
     gp.add(JugadorAnteriorTxt, 0, 0);
     gp.add(P1V, 0, 1);
     gp.add(JugadorAnteriorName, 0, 2);
+    gp.add(LastCards, 0, 3);
     GridPane.setHalignment(JugadorAnteriorTxt, HPos.CENTER);
     GridPane.setHalignment(JugadorAnteriorName, HPos.CENTER);
     GridPane.setHalignment(P1V, HPos.CENTER);
+    GridPane.setHalignment(LastCards, HPos.CENTER);
     // Actual
     gp.add(JugadorActualTxt, 1, 0);
     gp.add(P2V, 1, 1);
     gp.add(JugadorActualName, 1, 2);
+    gp.add(CurrentCards, 1, 3);
     GridPane.setHalignment(JugadorActualTxt, HPos.CENTER);
     GridPane.setHalignment(JugadorActualName, HPos.CENTER);
     GridPane.setHalignment(P2V, HPos.CENTER);
+    GridPane.setHalignment(CurrentCards, HPos.CENTER);
     // Siguiente
     gp.add(JugadorSigTxt, 2, 0);
     gp.add(P3V, 2, 1);
     gp.add(JugadorSigName, 2, 2);
+    gp.add(NextCards, 2, 3);
     GridPane.setHalignment(JugadorSigTxt, HPos.CENTER);
     GridPane.setHalignment(JugadorSigName, HPos.CENTER);
     GridPane.setHalignment(P3V, HPos.CENTER);
+    GridPane.setHalignment(NextCards, HPos.CENTER);
     gp.setAlignment(Pos.CENTER);
     // gp.setGridLinesVisible(true);
     root.setTop(gp);
 
-    // Create VBox
-    VBox vbox = new VBox();
 
     // Create GridPane Two
     GridPane gp2 = new GridPane();
     gp2.setPadding(new Insets(10, 0, 10, 0));
+    // gp2.add(playersView, 0,0);
     gp2.add(DiscardView, 0, 0);
+    // gp2.addColumn(10, DeckView);
     gp2.add(DeckView, 1, 0);
     gp2.add(DiscardText, 0, 1);
     gp2.add(DeckText, 1, 1);
@@ -253,8 +288,16 @@ public class GUIView extends Application implements Observer {
     RowConstraints cc2 = new RowConstraints();
     cc2.setMaxHeight(DiscardView.getScaleX());
     gp2.getRowConstraints().addAll(cc, cc2);
-    root.setCenter(gp2);
-    // gp2.setGridLinesVisible(true);
+    gp2.setGridLinesVisible(true);
+
+    // Create AnchorPane
+    AnchorPane center = new AnchorPane(gp2);
+    AnchorPane.setRightAnchor(gp2, (double) 730);
+    root.setCenter(center);
+    center.mouseTransparentProperty().set(false);
+  
+    
+   
 
     // Create Grid 3
     GridPane gp3 = new GridPane();
@@ -264,7 +307,18 @@ public class GUIView extends Application implements Observer {
     // gp3.setGridLinesVisible(true);
     gp3.setAlignment(Pos.CENTER);
     root.setBottom(gp3);
-
+    
+    // PlayerListIcon
+    Image players = new Image(GUIView.class.getResourceAsStream("/Images/Players.png"));
+    ImageView playersView = new ImageView(players);
+    playersView.setTranslateX(230);
+    playersView.setTranslateY(60);
+    //playersView.setScaleX(1.2);
+    //playersView.setScaleY(1.2);
+    playersView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        new PlayerListHandler(this));
+    root.setLeft(playersView);
+    
     // Create Scene
     Scene scene = new Scene(root, X, Y);
     Color c = Color.web("#2B2B2B", 0.7);
@@ -277,6 +331,7 @@ public class GUIView extends Application implements Observer {
     root.setBackground(bgf);
     primaryStage.setMinWidth(X);
     primaryStage.setMinHeight(Y);
+    primaryStage.setResizable(false);
     primaryStage.setMaximized(true);
     primaryStage.setTitle("JavaUNO GUI");
     primaryStage.setScene(scene);
@@ -288,10 +343,7 @@ public class GUIView extends Application implements Observer {
   }
 
   public static void main(String args[]) {
-
     launch(args);
-    // ConsoleView view = new ConsoleView(game);
-    // ConsoleController ctrl = new ConsoleController(game, view);
   }
 
   public int GetFirstCardIndex() {
@@ -310,11 +362,90 @@ public class GUIView extends Application implements Observer {
     this.FirstCardIndex -= x;
   }
 
-  public COLOR ChooseColorAlert() {
-    
+  public void PlayError() {
     // root(Group)
     Group root = new Group();
-    //Scene
+    // Scene
+    Scene scene = new Scene(root, 460, 200);
+    // Creating line object
+    Line line = new Line();
+    line.setStartX(0);
+    line.setStartY(80);
+    line.setEndX(700);
+    line.setEndY(80);
+
+    // Image (i)
+    Image x = new Image(GUIView.class.getResourceAsStream("/Images/InfoIcons/x.png"));
+    ImageView xView = new ImageView(x);
+    xView.setLayoutX(360);
+    xView.setLayoutY(0);
+    xView.setScaleX(0.6);
+    xView.setScaleY(0.6);
+    // Creating Text
+    Text action = new Text("Error");
+    action.setY(50);
+    action.setX(30);
+    action.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 22));
+    // Choose text
+    Text choose = new Text("You can't play that card right now.");
+    choose.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 17));
+    choose.setY(141);
+    choose.setX(30);
+
+    // Select Button
+    Button ok = new Button("OK");
+    ok.setLayoutX(380);
+    ok.setLayoutY(170);
+    ok.setStyle("-fx-padding: 5 12 5 12;");
+
+
+
+    // Stage
+    root.getChildren().addAll(line, action, choose, ok, xView);
+    Stage stage = new Stage();
+    // Close Stage with select button
+    ok.setOnAction(new ExitWindow(stage));
+    stage.setResizable(false);
+    stage.setTitle("JavaUNO GUI");
+    stage.setScene(scene);
+    Color c = Color.web("#2B2B2B", 0);
+    scene.setFill(c);
+    stage.showAndWait();
+
+  }
+  public void PlayerList(){
+    //root (ScrollPane)
+    ScrollPane root=new ScrollPane();
+    root.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+    root.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+    //Font
+    Font Josefin = Font
+        .loadFont(GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 20);
+    //VBox
+    VBox vbox =new VBox();
+    ArrayList<IPlayer> players=game.getPlayers();
+    for(int i=0;i<players.size();i++){
+      Text player =new Text(players.get(i).toString());
+      player.setTranslateY(i*20);
+      player.setFont(Josefin);
+      vbox.getChildren().add(player);
+    }
+    // Scene
+    root.setContent(vbox);
+    Scene scene = new Scene(root, 500, 700);
+    Stage stage = new Stage();
+    stage.setResizable(false);
+    stage.setTitle("JavaUNO GUI-Player's List");
+    stage.setScene(scene);
+    Color c = Color.web("#2B2B2B", 0);
+    scene.setFill(c);
+    stage.showAndWait();
+  }
+  public COLOR ChooseColorAlert() {
+
+    // root(Group)
+    Group root = new Group();
+    // Scene
     Scene scene = new Scene(root, 460, 200);
     // Creating line object
     Line line = new Line();
@@ -354,19 +485,14 @@ public class GUIView extends Application implements Observer {
     select.setLayoutX(380);
     select.setLayoutY(170);
     select.setStyle("-fx-padding: 5 12 5 12;");
-   
 
 
 
     // Stage
     root.getChildren().addAll(line, action, choose, colorBox, select, iView);
     Stage stage = new Stage();
-    //Close Stage with select button
-    select.setOnAction(new EventHandler<ActionEvent>() {
-      @Override public void handle(ActionEvent e) {
-        stage.close();
-      }
-  });
+    // Close Stage with select button
+    select.setOnAction(new ExitWindow(stage));
     stage.setResizable(false);
     stage.setTitle("JavaUNO GUI");
     stage.setScene(scene);
@@ -374,6 +500,59 @@ public class GUIView extends Application implements Observer {
     scene.setFill(c);
     stage.showAndWait();
     return COLOR.valueOf(colorBox.getValue().toUpperCase());
+  }
+
+  public void UNOAlert() {
+
+    // root(Group)
+    Group root = new Group();
+    // Scene
+    Scene scene = new Scene(root, 460, 200);
+    // Creating line object
+    Line line = new Line();
+    line.setStartX(0);
+    line.setStartY(80);
+    line.setEndX(700);
+    line.setEndY(80);
+
+    // Image (i)
+    Image i = new Image(GUIView.class.getResourceAsStream("/Images/InfoIcons/i.png"));
+    ImageView iView = new ImageView(i);
+    iView.setLayoutX(360);
+    iView.setLayoutY(0);
+    iView.setScaleX(0.6);
+    iView.setScaleY(0.6);
+    // Creating Text
+    Text action = new Text("¡UNO!");
+    action.setY(50);
+    action.setX(30);
+    action.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 26));
+    // Choose text
+    Text choose = new Text(game.getLastPlayer() + " said UNO!");
+    choose.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 17));
+    choose.setY(141);
+    choose.setX(30);
+
+    // Select Button
+    Button ok = new Button("OK");
+    ok.setLayoutX(380);
+    ok.setLayoutY(170);
+    ok.setStyle("-fx-padding: 5 12 5 12;");
+
+
+
+    // Stage
+    root.getChildren().addAll(line, action, choose, ok, iView);
+    Stage stage = new Stage();
+    // Close Stage with select button
+    ok.setOnAction(new ExitWindow(stage));
+    stage.setResizable(false);
+    stage.setTitle("JavaUNO GUI");
+    stage.setScene(scene);
+    Color c = Color.web("#2B2B2B", 0);
+    scene.setFill(c);
+    stage.showAndWait();
+
   }
 
   public static IGameLogic MakeGame() {
@@ -427,6 +606,9 @@ public class GUIView extends Application implements Observer {
     JugadorActualName.setText(CurrentPlayer.toString());
     JugadorSigName.setText(NextPlayer.toString());
     JugadorAnteriorName.setText(LastPlayer.toString());
+    LastCards.setText(LastPlayer.getHandSize() + " cards");
+    CurrentCards.setText(CurrentPlayer.getHandSize() + " cards");
+    NextCards.setText(NextPlayer.getHandSize() + " cards");
     DiscardText.setText(game.getCardManager().sizeofDiscard() + "Cards");
     DeckText.setText(game.getCardManager().getDrawableCardsNumber()
         - game.getCardManager().sizeofDiscard() + "Cards");
@@ -469,8 +651,12 @@ public class GUIView extends Application implements Observer {
 
   @Override
   public void update(Observable o, Object arg) {
-    this.FirstCardIndex = 0;
-    ctrl.playTurn();
+    if ((Boolean) arg) {
+      this.FirstCardIndex = 0;
+      ctrl.playTurn();
+    } else {
+      this.PlayError();
+    }
 
   }
 

@@ -16,7 +16,12 @@ public interface IController {
    * 
    * @return a color
    */
+
   public COLOR askForColor();
+  /**
+   * Displays that one player has said UNO
+   */
+  public void SayUNO();
 
   /**
    * Asks for a card from hand to a player.
@@ -24,6 +29,7 @@ public interface IController {
    * @param player player asked for a card.
    * @return a card from player's hand
    */
+  
   public int AskForCardFromHand(IPlayer player);
 
   /**

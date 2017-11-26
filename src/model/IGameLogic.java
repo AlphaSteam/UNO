@@ -1,10 +1,11 @@
 package model;
 
+import java.util.ArrayList;
+
 import controller.IController;
 import model.card.ICardPilesManager;
 import model.card.type.ICard;
 import model.player.type.IPlayer;
-import view.GUIView;
 
 /**
  * Represents the complete game logic.
@@ -130,6 +131,10 @@ public interface IGameLogic  {
    * @param ctrl Controller of the game.
    */
   void announceWinner(IController ctrl);
-
+  /**
+   * Returns the list of players of the game
+   * @return the list of players of the game
+   */
+  ArrayList<IPlayer> getPlayers();
 
 }
