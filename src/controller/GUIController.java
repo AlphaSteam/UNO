@@ -1,7 +1,5 @@
 package controller;
 
-import javafx.animation.PauseTransition;
-import javafx.util.Duration;
 import model.IGameLogic;
 import model.card.type.COLOR;
 import model.card.type.ICard;
@@ -42,8 +40,6 @@ public class GUIController implements IController {
   @Override
   public void playTurn() {
     this.game.startTurn(this);
-    System.out.println(game.getCurrentPlayer());
-    System.out.println(game.getCurrentPlayedCard());
     updatePlayedCard();
     view.updateCurrentStatus();
     IPlayer CurrentPlayer = game.getCurrentPlayer();

@@ -214,7 +214,7 @@ public class GUIView extends Application implements Observer {
     DeckView.setScaleX(CardScale);
     DeckView.setScaleY(CardScale);
     DeckView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
-        new DeckHandler(game, ctrl));
+        new DeckHandler(game, ctrl,this));
     // LeftButton
     Image LeftButton = new Image(GUIView.class.getResourceAsStream("/Images/Buttons/Left.png"));
     ImageView LeftView = new ImageView(LeftButton);
@@ -635,7 +635,6 @@ public class GUIView extends Application implements Observer {
     IPlayerListBuilder playerBuilder = new PlayerListBuilder();
     IPlayer Player1 = new HumanPlayer("Seba");
     IPlayer PlayerR1 = new RandomPlayer("R2D2");
-    IPlayer PlayerR2 = new HumanPlayer("Cris");
     IPlayer PlayerR3 = new RandomPlayer("Bender");
     IPlayer PlayerR4 = new RandomPlayer("UNOBOT");
     IPlayer franco = new HumanPlayer("Franco");
@@ -648,13 +647,8 @@ public class GUIView extends Application implements Observer {
     playerBuilder.addPlayer(matilde);
     playerBuilder.addPlayer(Player1);
     playerBuilder.addPlayer(PlayerR1);
-    playerBuilder.addPlayer(PlayerR2);
     playerBuilder.addPlayer(PlayerR3);
     playerBuilder.addPlayer(PlayerR4);
-    for(int i=0;i<3;i++){
-      IPlayer player = new RandomPlayer(i);
-      playerBuilder.addPlayer(player);
-    }
     ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();
     IGameLogic game = new GameLogic(AL, Deck);
     return game;
