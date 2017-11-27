@@ -10,6 +10,7 @@ import controller.RightButtonHandler;
 import controller.CardHandler;
 import controller.DeckHandler;
 import controller.ExitWindow;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -41,6 +42,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import model.GameLogic;
 import model.IGameLogic;
 import model.card.ICardPile;
@@ -331,8 +334,9 @@ public class GUIView extends Application implements Observer {
     root.setBackground(bgf);
     primaryStage.setMinWidth(X);
     primaryStage.setMinHeight(Y);
-    primaryStage.setResizable(false);
+    //primaryStage.setResizable(false);
     primaryStage.setMaximized(true);
+    //primaryStage.setFullScreen(true);
     primaryStage.setTitle("JavaUNO GUI");
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -464,7 +468,7 @@ public class GUIView extends Application implements Observer {
     Scene scene = new Scene(root, 500, 700);
     Stage stage = new Stage();
     stage.setResizable(false);
-    stage.setTitle("JavaUNO GUI-Player's List");
+    stage.setTitle("JavaUNO GUI");
     stage.setScene(scene);
     Color c = Color.web("#2B2B2B", 0);
     scene.setFill(c);
@@ -619,7 +623,7 @@ public class GUIView extends Application implements Observer {
     Stage stage = new Stage();
     // Close Stage with select button
     stage.setResizable(false);
-    stage.setTitle("JavaUNO GUI-WINNER!");
+    stage.setTitle("JavaUNO GUI");
     stage.setScene(scene);
     stage.setOnCloseRequest(e -> Platform.exit());
     Color c = Color.web("#2B2B2B", 0);
@@ -627,6 +631,21 @@ public class GUIView extends Application implements Observer {
     stage.showAndWait();
     
 
+  }
+  public void WaitAlert(double i){
+    try{
+    Stage stage = new Stage();
+    stage.initStyle(StageStyle.TRANSPARENT);
+    stage.toBack();
+    //Wait
+    PauseTransition delay = new PauseTransition(Duration.seconds(i));
+    delay.setOnFinished( event -> stage.close() );
+    delay.play();
+    stage.showAndWait();
+    }catch(Exception e){
+      System.out.println("");
+    }
+    
   }
 
   public static IGameLogic MakeGame() {
@@ -641,12 +660,12 @@ public class GUIView extends Application implements Observer {
     IPlayer juan = new HumanPlayer("Juan");
     IPlayer marco = new HumanPlayer("Marco");
     IPlayer matilde = new HumanPlayer("Matilde");
+    playerBuilder.addPlayer(PlayerR1);
     playerBuilder.addPlayer(franco);
     playerBuilder.addPlayer(juan);
     playerBuilder.addPlayer(marco);
     playerBuilder.addPlayer(matilde);
     playerBuilder.addPlayer(Player1);
-    playerBuilder.addPlayer(PlayerR1);
     playerBuilder.addPlayer(PlayerR3);
     playerBuilder.addPlayer(PlayerR4);
     ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();

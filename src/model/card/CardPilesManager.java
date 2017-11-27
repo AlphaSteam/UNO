@@ -27,8 +27,8 @@ public class CardPilesManager implements ICardPilesManager {
   public void rebuildDeck() {
     for (int i = 0; i < Discard.getSize(); i++) {
       Deck.pushCard(Discard.popCard());
-      Deck.shuffle();
     }
+    Deck.shuffle();
 
   }
 
@@ -37,7 +37,12 @@ public class CardPilesManager implements ICardPilesManager {
     if (this.Deck.getSize() > 1) {
       return Deck.popCard();
     } else {
-      return new NullCard();
+      rebuildDeck();
+      if (this.Deck.getSize() > 1) {
+        return Deck.popCard();
+      } else {
+        return new NullCard();
+      }
     }
   }
 

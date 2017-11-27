@@ -2,8 +2,10 @@ package model.player.type;
 
 import java.util.ArrayList;
 
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.card.type.NullCard;
+import model.card.type.Symbol;
 
 /**
  * This class provides a skeletal implementation of the Player interface to minimize the effort
@@ -78,6 +80,16 @@ public abstract class AbstractPlayer implements IPlayer {
       }
     }
     return true;
+  }
+  @Override
+  public boolean HasCard(COLOR color,Symbol symbol){
+    for(int i=0;i<this.getHandSize();i++){
+      if(this.getCardFromHand(i).getSymbol()==symbol && this.getCardFromHand(i).getColor()==color){
+        return true;
+      }
+    }
+    return false;
+    
   }
 
   @Override

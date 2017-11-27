@@ -46,10 +46,12 @@ public class GUIController implements IController {
     boolean Human = CurrentPlayer.isHuman();
     if (!Human) {
       boolean played = false;
+      view.WaitAlert(1);
       while (played == false) {
         ICard card = game.getCurrentPlayer().getCardToPlay(game, this);
         played = game.playCard(card, this);
       }
+      
     }
 
   }

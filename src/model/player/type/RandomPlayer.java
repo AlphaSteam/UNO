@@ -62,16 +62,41 @@ public class RandomPlayer extends AbstractPlayer {
 
   @Override
   public COLOR selectColor(IGameLogic game, IController ctrl) {
-    int C = (int) ((Math.random() * 4) + 1);
-    if (C == 1) {
-      return COLOR.BLUE;
-    } else if (C == 2) {
-      return COLOR.GREEN;
-    } else if (C == 3) {
-      return COLOR.RED;
-    } else {
-      return COLOR.YELLOW;
-    }
+     int Red=0;
+     int Blue=0;
+     int Green=0;
+     int Yellow=0;
+     for(int i=0;i<this.getHandSize();i++){
+       if(this.getCardFromHand(i).getColor()==COLOR.RED){
+         Red++;
+       }
+       else if(this.getCardFromHand(i).getColor()==COLOR.BLUE){
+         Blue++;
+       }
+       else if(this.getCardFromHand(i).getColor()==COLOR.GREEN){
+         Green++;
+       }
+       else if(this.getCardFromHand(i).getColor()==COLOR.YELLOW){
+         Yellow++;
+       }
+     }
+     
+     
+     int Max=Math.max(Math.max(Red,Blue),Math.max(Green,Yellow));
+     if (Max==Red){
+       return COLOR.RED;
+     }
+     else if(Max==Blue){
+       return COLOR.BLUE;
+     }
+     else if(Max==Green){
+       return COLOR.GREEN;
+     }
+     else{
+       return COLOR.YELLOW;
+     }
+     
+    
   }
 
 }

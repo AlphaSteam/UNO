@@ -6,6 +6,7 @@ import controller.IController;
 import model.IGameLogic;
 import model.card.type.COLOR;
 import model.card.type.ICard;
+import model.card.type.Symbol;
 
 /**
  * Interface of a UNO game player.
@@ -95,7 +96,11 @@ public interface IPlayer {
    * @return true if the player needs to draw a card.
    */
   boolean needsToDrawCard(ICard currentCard);
-
+  /**
+   * Returns true if the player has a certain card in hand
+   * @return true if the player has a certain card in hand
+   */
+  boolean HasCard(COLOR color,Symbol symbol);
   /**
    * Returns the number card from the hand of the player, or a NullCard if the card doesn't exist.
    * 

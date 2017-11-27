@@ -6,6 +6,7 @@ import model.card.CardPilesManager;
 import model.card.ICardPile;
 import model.card.ICardPilesManager;
 import model.card.type.ICard;
+import model.card.type.Symbol;
 import model.player.IPlayerManager;
 import model.player.PlayerManager;
 import model.player.type.IPlayer;
@@ -78,10 +79,41 @@ public class GameLogic  extends AbstractGameLogic  {
     if(this.getLastPlayer().hasWon()){
       this.announceWinner(ctrl);
     }
+   ICard CurrentCard=this.getCurrentPlayedCard();
     if (!this.isDrawWellEmpty()) {
+      IPlayer Current=this.getCurrentPlayer();
+      if(!Current.HasCard(CurrentCard.getColor(), CurrentCard.getSymbol())){
       this.drawCardsFromWell(getCurrentPlayer(), ctrl);
       this.resetDrawWell();
       this.skipPlayer();
+      }
+      else{
+        
+        if(CurrentCard.getSymbol()==Symbol.WILD_DRAW_FOUR){
+          for(int i=0;i<Current.getHandSize();i++){
+            ICard Card=Current.getCardFromHand(i);
+            if(Card.getSymbol()==Symbol.WILD_DRAW_FOUR){
+              this.playCard(Card, ctrl);
+            }
+          }
+          
+        }
+        if(CurrentCard.getSymbol()==Symbol.DRAW_TWO){
+          for(int i=0;i<Current.getHandSize();i++){
+            ICard Card=Current.getCardFromHand(i);
+            if(Card.getSymbol()==CurrentCard.getSymbol()){
+              this.playCard(Card, ctrl);
+            }
+          }
+          for(int i=0;i<Current.getHandSize();i++){
+            ICard Card=Current.getCardFromHand(i);
+            if(Card.getSymbol()==Symbol.WILD_DRAW_FOUR){
+              this.playCard(Card, ctrl);
+            }
+          }
+        }
+        
+      }
     }
 
 
