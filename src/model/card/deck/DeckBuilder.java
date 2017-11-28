@@ -38,6 +38,12 @@ public class DeckBuilder {
   public void SetNumericStrategy() {
     Strategy = new NumericDeckStrategy();
   }
+  /**
+   * Sets the strategy of the builder to make a deck full of Temporal Ban cards.
+   */
+  public void SetBanStrategy() {
+    Strategy = new BanDeckStrategy();
+  }
 
   /**
    * Creates the deck with the chosen strategy.
@@ -46,4 +52,5 @@ public class DeckBuilder {
   public ICardPile createDeck() {
     return (Strategy.createDeck());
   }
+ 
 }

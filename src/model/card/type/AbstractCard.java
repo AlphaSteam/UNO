@@ -2,8 +2,6 @@ package model.card.type;
 
 import java.util.HashMap;
 
-import model.card.ICardPilesManager;
-
 /**
  * This class provides a skeletal implementation of the Card interface to minimize the effort
  * required to implement this interface.
@@ -21,8 +19,11 @@ public abstract class AbstractCard implements ICard {
     if(map.containsKey(getColor())){
       return false;
     }
+    if( otherCard.getSymbol()==Symbol.BAN ){
+      
+    }
     if ((otherCard.getColor() == this.color) || (otherCard.getSymbol() == this.symbol)
-        || (this.color == COLOR.NONE) || otherCard.getSymbol()==Symbol.BAN ) {
+        || (this.color == COLOR.NONE)) {
       return true;
     } else {
       return false;

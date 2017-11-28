@@ -34,7 +34,7 @@ public class GameLogic extends AbstractGameLogic {
     this.CardM = new CardPilesManager(Deck);
     for (IPlayer player : this.PlayerM.getPlayers()) {
       if (CardM.getDrawableCardsNumber() >= 7) {
-        CardM.addCardsToPlayer(player, 7);
+        CardM.addCardsToPlayer(player,7);
       }
     }
   }
@@ -204,7 +204,7 @@ public class GameLogic extends AbstractGameLogic {
 
   @Override
   public void BanColor(String color) {
-    this.getCardManager().addBannedColor(COLOR.valueOf(color));
+    this.getCardManager().addBannedColor(COLOR.valueOf(color),3);
 
   }
 
@@ -218,7 +218,7 @@ public class GameLogic extends AbstractGameLogic {
       Banned.put(key, Banned.get(key)-1);
       }
       else{
-        Banned.remove(key);
+        it.remove();
       }
     }
   }

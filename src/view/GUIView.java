@@ -110,7 +110,7 @@ public class GUIView extends Application implements Observer {
   @Override
   public void start(Stage primaryStage) {
     game.addObserver(this);
-    
+
     // Create root BorderPane
     BorderPane root = new BorderPane();
     // Creacion de Textos
@@ -218,7 +218,7 @@ public class GUIView extends Application implements Observer {
     DeckView.setScaleX(CardScale);
     DeckView.setScaleY(CardScale);
     DeckView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
-        new DeckHandler(game, ctrl,this));
+        new DeckHandler(game, ctrl, this));
     // LeftButton
     Image LeftButton = new Image(GUIView.class.getResourceAsStream("/Images/Buttons/Left.png"));
     ImageView LeftView = new ImageView(LeftButton);
@@ -233,7 +233,7 @@ public class GUIView extends Application implements Observer {
     RightView.setScaleY(ButtonsScaleY);
     RightView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         new RightButtonHandler(this, game));
-   
+
 
 
     // Hbox for cards in hand
@@ -271,9 +271,9 @@ public class GUIView extends Application implements Observer {
     GridPane.setHalignment(P3V, HPos.CENTER);
     GridPane.setHalignment(NextCards, HPos.CENTER);
     gp.setAlignment(Pos.CENTER);
-    //gp.setGridLinesVisible(true);
+    // gp.setGridLinesVisible(true);
     root.setTop(gp);
-    
+
 
     // Create GridPane Two(Center)
     GridPane gp2 = new GridPane();
@@ -292,7 +292,7 @@ public class GUIView extends Application implements Observer {
     RowConstraints cc2 = new RowConstraints();
     cc2.setMaxHeight(DiscardView.getScaleX());
     gp2.getRowConstraints().addAll(cc, cc2);
-    //gp2.setGridLinesVisible(true);
+    // gp2.setGridLinesVisible(true);
     gp2.setTranslateX(230);
 
     // Create AnchorPane
@@ -300,9 +300,8 @@ public class GUIView extends Application implements Observer {
     AnchorPane.setRightAnchor(gp2, (double) 730);
     root.setCenter(center);
     center.mouseTransparentProperty().set(false);
-  
-    
-   
+
+
 
     // Create Grid 3
     GridPane gp3 = new GridPane();
@@ -312,20 +311,20 @@ public class GUIView extends Application implements Observer {
     // gp3.setGridLinesVisible(true);
     gp3.setAlignment(Pos.CENTER);
     root.setBottom(gp3);
-    
+
     // PlayerListIcon
     Image players = new Image(GUIView.class.getResourceAsStream("/Images/Players.png"));
     ImageView playersView = new ImageView(players);
     playersView.setTranslateX(230);
     playersView.setTranslateY(60);
-    //playersView.setScaleX(1.2);
-    //playersView.setScaleY(1.2);
+    // playersView.setScaleX(1.2);
+    // playersView.setScaleY(1.2);
     playersView.pickOnBoundsProperty().set(true);
     playersView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         new PlayerListHandler(this));
     root.setLeft(playersView);
-    
-    //BanColors Icon
+
+    // BanColors Icon
     Image bans = new Image(GUIView.class.getResourceAsStream("/Images/Bcolors.png"));
     ImageView bansView = new ImageView(bans);
     bansView.setTranslateX(-270);
@@ -334,7 +333,7 @@ public class GUIView extends Application implements Observer {
     bansView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         new ColorStatusHandler(this));
     root.setRight(bansView);
-    
+
     // Create Scene
     Scene scene = new Scene(root, X, Y);
     Color c = Color.web("#2B2B2B", 0.7);
@@ -347,9 +346,9 @@ public class GUIView extends Application implements Observer {
     root.setBackground(bgf);
     primaryStage.setMinWidth(X);
     primaryStage.setMinHeight(Y);
-    //primaryStage.setResizable(false);
+    // primaryStage.setResizable(false);
     primaryStage.setMaximized(true);
-    //primaryStage.setFullScreen(true);
+    // primaryStage.setFullScreen(true);
     primaryStage.setTitle("JavaUNO GUI");
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -430,25 +429,26 @@ public class GUIView extends Application implements Observer {
     stage.showAndWait();
 
   }
-  public void PlayerList(){
-    //root (ScrollPane)
-    ScrollPane root=new ScrollPane();
+
+  public void PlayerList() {
+    // root (ScrollPane)
+    ScrollPane root = new ScrollPane();
     root.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
     root.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-    //Font
+    // Font
     Font Josefin = Font
         .loadFont(GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 30);
-    //Group
-    Group group=new Group();
-    ArrayList<IPlayer> players=game.getPlayers();
-    for(int i=0;i<players.size();i++){
-      //Hbox that contains each player
-      HBox hbox=new HBox();
-      //Player
-      IPlayer player=players.get(i);
-      //Player Portrait
-      Image playerImage=Human;
-      ImageView playerImgView=new ImageView(playerImage);
+    // Group
+    Group group = new Group();
+    ArrayList<IPlayer> players = game.getPlayers();
+    for (int i = 0; i < players.size(); i++) {
+      // Hbox that contains each player
+      HBox hbox = new HBox();
+      // Player
+      IPlayer player = players.get(i);
+      // Player Portrait
+      Image playerImage = Human;
+      ImageView playerImgView = new ImageView(playerImage);
       if (player.isHuman()) {
         playerImgView.setImage(Human);
       } else {
@@ -456,23 +456,23 @@ public class GUIView extends Application implements Observer {
       }
       playerImgView.setScaleX(0.4);
       playerImgView.setScaleY(0.4);
-      //playerImgView.setY(i*75);
-      //Player Name
-      Text playerTxt =new Text(player.toString());
+      // playerImgView.setY(i*75);
+      // Player Name
+      Text playerTxt = new Text(player.toString());
       playerTxt.setFont(Josefin);
-     
-      hbox.getChildren().addAll(playerImgView,playerTxt);
-      hbox.setTranslateY(100*i);
+
+      hbox.getChildren().addAll(playerImgView, playerTxt);
+      hbox.setTranslateY(100 * i);
       hbox.setAlignment(Pos.CENTER);
-      //Player Number of cards
-      Text nCards =new Text(" "+player.getHandSize()+" cards");
+      // Player Number of cards
+      Text nCards = new Text(" " + player.getHandSize() + " cards");
       nCards.setFont(Josefin);
-      nCards.setY(hbox.getTranslateY()+86);
+      nCards.setY(hbox.getTranslateY() + 86);
       nCards.setX(340);
-      //nCards.setX(140);
-      
-      group.getChildren().addAll(hbox,nCards);
-  
+      // nCards.setX(140);
+
+      group.getChildren().addAll(hbox, nCards);
+
     }
     group.setTranslateY(-10);
     group.setTranslateX(-30);
@@ -487,76 +487,69 @@ public class GUIView extends Application implements Observer {
     scene.setFill(c);
     stage.showAndWait();
   }
-  public void ColorStatus(){
-    //root (ScrollPane)
-    ScrollPane root=new ScrollPane();
+
+  public void ColorStatus() {
+    // root (ScrollPane)
+    ScrollPane root = new ScrollPane();
     root.setHbarPolicy(ScrollBarPolicy.NEVER);
     root.setVbarPolicy(ScrollBarPolicy.NEVER);
-    //Font
+    // Font
     Font Josefin = Font
         .loadFont(GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 20);
-    //Group
-    Group group=new Group();
-    COLOR[] colors=new COLOR[4];
-    colors[0]=COLOR.RED;
-    colors[1]=COLOR.GREEN;
-    colors[2]=COLOR.BLUE;
-    colors[3]=COLOR.YELLOW;
-    for(int i=0;i<colors.length;i++){
-      //Hbox that contains each player
-      HBox hbox=new HBox();
-      //Color
-      COLOR color=colors[i];
-      //Color Name
-      Text colorName =new Text(color.toString());
+    // Group
+    Group group = new Group();
+    COLOR[] colors = new COLOR[4];
+    colors[0] = COLOR.RED;
+    colors[1] = COLOR.GREEN;
+    colors[2] = COLOR.BLUE;
+    colors[3] = COLOR.YELLOW;
+    for (int i = 0; i < colors.length; i++) {
+      // Hbox that contains each player
+      HBox hbox = new HBox();
+      // Color
+      COLOR color = colors[i];
+      // Color Name
+      Text colorName = new Text(color.toString());
       colorName.setFont(Josefin);
-     
       hbox.getChildren().addAll(colorName);
-      hbox.setTranslateY(100*(i+1));
+      hbox.setTranslateY(100 * (i + 1));
       hbox.setTranslateX(200);
-      //hbox.setAlignment(Pos.CENTER);
-      //Color Status texts
-      Text status=new Text("");
-      Text turns=new Text("");
-      if(game.getBannedColors().containsKey(color)){
+      // hbox.setAlignment(Pos.CENTER);
+      
+      // Color Status texts
+      Text status = new Text("");
+      Text turns = new Text("");
+      if (game.getBannedColors().containsKey(color)) {
         status.setText("BANNED");
         status.setFont(Josefin);
-        status.setY(hbox.getTranslateY()+17);
+        status.setY(hbox.getTranslateY() + 17);
         status.setX(340);
         status.setFill(Color.RED);
-        //status.setX(140);
-        
-        //Turns left until DesBanned
-        turns.setText((game.getBannedColors().get(color)+1)+" Turns left");
-        Font turnsFont = Font
-            .loadFont(GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 30);
+        // status.setX(140);
+
+        // Turns left until DesBanned
+        turns.setText((game.getBannedColors().get(color) + 1) + " Turns left");
+        Font turnsFont = Font.loadFont(
+            GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 30);
         turns.setFont(turnsFont);
-        turns.setY(hbox.getTranslateY()+17);
+        turns.setY(hbox.getTranslateY() + 17);
         turns.setX(540);
-        group.getChildren().addAll(hbox,status,turns);
-      }
-      else{
+        group.getChildren().addAll(hbox, status, turns);
+      } else {
         status.setText("NOT BANNED");
         status.setFont(Josefin);
-        status.setY(hbox.getTranslateY()+17);
+        status.setY(hbox.getTranslateY() + 17);
         status.setX(340);
         status.setFill(Color.LIMEGREEN);
-        //status.setX(140);
-        
-      
-        group.getChildren().addAll(hbox,status);
+        // status.setX(140);
+        group.getChildren().addAll(hbox, status);
       }
-      
-      
-      
-      
-  
     }
     group.setTranslateY(30);
     group.setTranslateX(30);
     // Scene
     root.setContent(group);
-    Scene scene = new Scene(root, 600,400);
+    Scene scene = new Scene(root, 600, 400);
     Stage stage = new Stage();
     stage.setResizable(false);
     stage.setTitle("JavaUNO GUI");
@@ -565,6 +558,7 @@ public class GUIView extends Application implements Observer {
     scene.setFill(c);
     stage.showAndWait();
   }
+
   public COLOR ChooseColorAlert() {
 
     // root(Group)
@@ -599,19 +593,19 @@ public class GUIView extends Application implements Observer {
     // ChoiceBox for colors
     ChoiceBox<String> colorBox = new ChoiceBox<String>();
     colorBox.getItems().addAll("Red", "Green", "Blue", "Yellow");
-    if(game.getBannedColors().containsKey(COLOR.RED)){
+    if (game.getBannedColors().containsKey(COLOR.RED)) {
       colorBox.getItems().remove("Red");
     }
-    if(game.getBannedColors().containsKey(COLOR.GREEN)){
+    if (game.getBannedColors().containsKey(COLOR.GREEN)) {
       colorBox.getItems().remove("Green");
     }
-    if(game.getBannedColors().containsKey(COLOR.BLUE)){
+    if (game.getBannedColors().containsKey(COLOR.BLUE)) {
       colorBox.getItems().remove("Blue");
     }
-    if(game.getBannedColors().containsKey(COLOR.YELLOW)){
+    if (game.getBannedColors().containsKey(COLOR.YELLOW)) {
       colorBox.getItems().remove("Yellow");
     }
-    
+
     colorBox.setLayoutX(200);
     colorBox.setLayoutY(120);
     colorBox.setMinWidth(180);
@@ -622,8 +616,6 @@ public class GUIView extends Application implements Observer {
     select.setLayoutX(380);
     select.setLayoutY(170);
     select.setStyle("-fx-padding: 5 12 5 12;");
-
-
 
     // Stage
     root.getChildren().addAll(line, action, choose, colorBox, select, iView);
@@ -640,7 +632,6 @@ public class GUIView extends Application implements Observer {
   }
 
   public void UNOAlert() {
-
     // root(Group)
     Group root = new Group();
     // Scene
@@ -691,6 +682,7 @@ public class GUIView extends Application implements Observer {
     stage.showAndWait();
 
   }
+
   public void WinnerAlert() {
 
     // root(Group)
@@ -733,27 +725,29 @@ public class GUIView extends Application implements Observer {
     Color c = Color.web("#2B2B2B", 0);
     scene.setFill(c);
     stage.showAndWait();
-    
+
 
   }
-  public void WaitAlert(double i){
-    try{
-    Stage stage = new Stage();
-    stage.initStyle(StageStyle.TRANSPARENT);
-    stage.toBack();
-    //Wait
-    PauseTransition delay = new PauseTransition(Duration.seconds(i));
-    delay.setOnFinished( event -> stage.close() );
-    delay.play();
-    stage.showAndWait();
-    }catch(Exception e){
+
+  public void WaitAlert(double i) {
+    try {
+      Stage stage = new Stage();
+      stage.initStyle(StageStyle.TRANSPARENT);
+      stage.toBack();
+      // Wait
+      PauseTransition delay = new PauseTransition(Duration.seconds(i));
+      delay.setOnFinished(event -> stage.close());
+      delay.play();
+      stage.showAndWait();
+    } catch (Exception e) {
       System.out.println("");
     }
-    
+
   }
 
   public static IGameLogic MakeGame() {
     DeckBuilder DB = new DeckBuilder();
+    DB.SetBanStrategy();
     ICardPile Deck = DB.createDeck();
     IPlayerListBuilder playerBuilder = new PlayerListBuilder();
     IPlayer Player1 = new HumanPlayer("Seba");
@@ -856,12 +850,12 @@ public class GUIView extends Application implements Observer {
 
   @Override
   public void update(Observable o, Object arg) {
-    if ((Boolean)arg) {
+    if ((Boolean) arg) {
       this.FirstCardIndex = 0;
       ctrl.playTurn();
     } else {
-      if(this.CurrentPlayer.isHuman()){
-      this.PlayError();
+      if (this.CurrentPlayer.isHuman()) {
+        this.PlayError();
       }
     }
 

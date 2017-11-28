@@ -99,8 +99,8 @@ public class CardPilesManager implements ICardPilesManager {
   }
 
   @Override
-  public void addBannedColor(COLOR color) {
-    this.getBannedColors().put(color,3);
+  public void addBannedColor(COLOR color, int i) {
+    this.getBannedColors().put(color,i);
     
   }
 

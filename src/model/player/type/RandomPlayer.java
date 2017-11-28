@@ -45,7 +45,16 @@ public class RandomPlayer extends AbstractPlayer {
       }
       return Playable.get((int) (Math.random() * Playable.size() - 2) + 1);
     } else {
-      return new DrawCard();
+      while(this.needsToDrawCard(game.getCurrentPlayedCard(),map)){
+        game.drawOneCard(this);
+      }
+      for (int j = 0; j < this.getHandSize(); j++) {
+        if (this.getCardFromHand(j).isPlayableOver(game.getCurrentPlayedCard(),map)) {
+          Playable.add(getCardFromHand(j));
+        }
+      }
+      return Playable.get((int) (Math.random() * Playable.size() - 2) + 1);
+      
     }
 
   }

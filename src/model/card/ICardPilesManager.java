@@ -71,13 +71,14 @@ public interface ICardPilesManager {
   ArrayList<ICard> addCardsToPlayer(IPlayer player, int number);
   /**
    * Returns a list of banned colors.
-   * 
+   *
    * @return list of banned colors.
    */
   HashMap<COLOR, Integer> getBannedColors();
   /**
    * Adds a color to the banned Colors.
-   * 
+   * @param color Color to be banned.
+   * @param i Number of turns it will be banned.
    */
-  void addBannedColor(COLOR color);
+  void addBannedColor(COLOR color, int i);
 }
