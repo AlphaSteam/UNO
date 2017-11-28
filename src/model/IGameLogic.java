@@ -1,9 +1,11 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import controller.IController;
 import model.card.ICardPilesManager;
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.player.type.IPlayer;
 
@@ -136,5 +138,19 @@ public interface IGameLogic  {
    * @return the list of players of the game
    */
   ArrayList<IPlayer> getPlayers();
+  /**
+   * Bans a color for the next three turns
+   * @param color String corresponding to the color that will be banned.
+   */
+  void BanColor(String color);
+  /**
+   * Updates the number of turns left for each banned color.
+   */
+  void UpdateBans();
+  /**
+   * Returns list of banned colors.
+   * @return banned colors.
+   */
+  public HashMap<COLOR, Integer> getBannedColors();
 
 }

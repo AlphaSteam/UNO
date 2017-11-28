@@ -1,6 +1,7 @@
 package model.player.type;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.card.type.COLOR;
 import model.card.type.ICard;
@@ -73,9 +74,9 @@ public abstract class AbstractPlayer implements IPlayer {
   }
 
   @Override
-  public boolean needsToDrawCard(ICard currentCard) {
+  public boolean needsToDrawCard(ICard currentCard,HashMap<COLOR,Integer> map) {
     for (int i = 0; i < this.getHandSize(); i++) {
-      if (this.getCardFromHand(i).isPlayableOver(currentCard)) {
+      if (this.getCardFromHand(i).isPlayableOver(currentCard,map)) {
         return false;
       }
     }

@@ -1,5 +1,7 @@
 package model.player.type;
 
+import java.util.HashMap;
+
 import controller.IController;
 import model.IGameLogic;
 import model.card.type.COLOR;
@@ -33,7 +35,7 @@ public class HumanPlayer extends AbstractPlayer {
   }
 
   @Override
-  public ICard getCardToPlay(IGameLogic game, IController ctrl) {
+  public ICard getCardToPlay(IGameLogic game, IController ctrl,HashMap<COLOR,Integer> map) {
     int num = ctrl.AskForCardFromHand(this);
     if (num < game.getCurrentPlayer().getHandSize()) {
       return this.getCardFromHand(num);

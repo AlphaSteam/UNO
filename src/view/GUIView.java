@@ -8,6 +8,7 @@ import controller.LeftButtonHandler;
 import controller.PlayerListHandler;
 import controller.RightButtonHandler;
 import controller.CardHandler;
+import controller.ColorStatusHandler;
 import controller.DeckHandler;
 import controller.ExitWindow;
 import javafx.animation.PauseTransition;
@@ -212,7 +213,7 @@ public class GUIView extends Application implements Observer {
     DiscardView.setScaleX(CardScale);
     DiscardView.setScaleY(CardScale);
     // DeckImage
-    Image Deck = new Image(GUIView.class.getResourceAsStream("/Images/UNOCards/Back.jpg"));
+    Image Deck = new Image(GUIView.class.getResourceAsStream("/Images/UNOCards/Back.png"));
     ImageView DeckView = new ImageView(Deck);
     DeckView.setScaleX(CardScale);
     DeckView.setScaleY(CardScale);
@@ -238,7 +239,7 @@ public class GUIView extends Application implements Observer {
     // Hbox for cards in hand
     hhand.setPadding(new Insets(15, 12, 15, 12));
 
-    // Create GridPane
+    // Create GridPane(TOP)
     GridPane gp = new GridPane();
     gp.setPadding(new Insets(10, 0, 10, 0));
     gp.setHgap(20);
@@ -274,7 +275,7 @@ public class GUIView extends Application implements Observer {
     root.setTop(gp);
     
 
-    // Create GridPane Two
+    // Create GridPane Two(Center)
     GridPane gp2 = new GridPane();
     gp2.setPadding(new Insets(10, 0, 10, 0));
     // gp2.add(playersView, 0,0);
@@ -292,6 +293,7 @@ public class GUIView extends Application implements Observer {
     cc2.setMaxHeight(DiscardView.getScaleX());
     gp2.getRowConstraints().addAll(cc, cc2);
     //gp2.setGridLinesVisible(true);
+    gp2.setTranslateX(230);
 
     // Create AnchorPane
     AnchorPane center = new AnchorPane(gp2);
@@ -318,9 +320,20 @@ public class GUIView extends Application implements Observer {
     playersView.setTranslateY(60);
     //playersView.setScaleX(1.2);
     //playersView.setScaleY(1.2);
+    playersView.pickOnBoundsProperty().set(true);
     playersView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         new PlayerListHandler(this));
     root.setLeft(playersView);
+    
+    //BanColors Icon
+    Image bans = new Image(GUIView.class.getResourceAsStream("/Images/Bcolors.png"));
+    ImageView bansView = new ImageView(bans);
+    bansView.setTranslateX(-270);
+    bansView.setTranslateY(10);
+    bansView.pickOnBoundsProperty().set(true);
+    bansView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        new ColorStatusHandler(this));
+    root.setRight(bansView);
     
     // Create Scene
     Scene scene = new Scene(root, X, Y);
@@ -474,6 +487,84 @@ public class GUIView extends Application implements Observer {
     scene.setFill(c);
     stage.showAndWait();
   }
+  public void ColorStatus(){
+    //root (ScrollPane)
+    ScrollPane root=new ScrollPane();
+    root.setHbarPolicy(ScrollBarPolicy.NEVER);
+    root.setVbarPolicy(ScrollBarPolicy.NEVER);
+    //Font
+    Font Josefin = Font
+        .loadFont(GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 20);
+    //Group
+    Group group=new Group();
+    COLOR[] colors=new COLOR[4];
+    colors[0]=COLOR.RED;
+    colors[1]=COLOR.GREEN;
+    colors[2]=COLOR.BLUE;
+    colors[3]=COLOR.YELLOW;
+    for(int i=0;i<colors.length;i++){
+      //Hbox that contains each player
+      HBox hbox=new HBox();
+      //Color
+      COLOR color=colors[i];
+      //Color Name
+      Text colorName =new Text(color.toString());
+      colorName.setFont(Josefin);
+     
+      hbox.getChildren().addAll(colorName);
+      hbox.setTranslateY(100*(i+1));
+      hbox.setTranslateX(200);
+      //hbox.setAlignment(Pos.CENTER);
+      //Color Status texts
+      Text status=new Text("");
+      Text turns=new Text("");
+      if(game.getBannedColors().containsKey(color)){
+        status.setText("BANNED");
+        status.setFont(Josefin);
+        status.setY(hbox.getTranslateY()+17);
+        status.setX(340);
+        status.setFill(Color.RED);
+        //status.setX(140);
+        
+        //Turns left until DesBanned
+        turns.setText((game.getBannedColors().get(color)+1)+" Turns left");
+        Font turnsFont = Font
+            .loadFont(GUIView.class.getResourceAsStream("/Fonts/JoseficSans/JosefinSans-Bold.ttf"), 30);
+        turns.setFont(turnsFont);
+        turns.setY(hbox.getTranslateY()+17);
+        turns.setX(540);
+        group.getChildren().addAll(hbox,status,turns);
+      }
+      else{
+        status.setText("NOT BANNED");
+        status.setFont(Josefin);
+        status.setY(hbox.getTranslateY()+17);
+        status.setX(340);
+        status.setFill(Color.LIMEGREEN);
+        //status.setX(140);
+        
+      
+        group.getChildren().addAll(hbox,status);
+      }
+      
+      
+      
+      
+  
+    }
+    group.setTranslateY(30);
+    group.setTranslateX(30);
+    // Scene
+    root.setContent(group);
+    Scene scene = new Scene(root, 600,400);
+    Stage stage = new Stage();
+    stage.setResizable(false);
+    stage.setTitle("JavaUNO GUI");
+    stage.setScene(scene);
+    Color c = Color.web("#2B2B2B", 0);
+    scene.setFill(c);
+    stage.showAndWait();
+  }
   public COLOR ChooseColorAlert() {
 
     // root(Group)
@@ -508,6 +599,19 @@ public class GUIView extends Application implements Observer {
     // ChoiceBox for colors
     ChoiceBox<String> colorBox = new ChoiceBox<String>();
     colorBox.getItems().addAll("Red", "Green", "Blue", "Yellow");
+    if(game.getBannedColors().containsKey(COLOR.RED)){
+      colorBox.getItems().remove("Red");
+    }
+    if(game.getBannedColors().containsKey(COLOR.GREEN)){
+      colorBox.getItems().remove("Green");
+    }
+    if(game.getBannedColors().containsKey(COLOR.BLUE)){
+      colorBox.getItems().remove("Blue");
+    }
+    if(game.getBannedColors().containsKey(COLOR.YELLOW)){
+      colorBox.getItems().remove("Yellow");
+    }
+    
     colorBox.setLayoutX(200);
     colorBox.setLayoutY(120);
     colorBox.setMinWidth(180);

@@ -22,7 +22,7 @@ import model.card.type.Symbol;
  * @author Sebastian
  *
  */
-public class NormalDeckStrategy implements IDeckStrategy {
+public class BanDeckStrategy implements IDeckStrategy {
 
   @Override
   public ICardPile createDeck() {

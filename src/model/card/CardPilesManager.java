@@ -1,7 +1,9 @@
 package model.card;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.card.type.NullCard;
 import model.player.type.IPlayer;
@@ -9,6 +11,7 @@ import model.player.type.IPlayer;
 public class CardPilesManager implements ICardPilesManager {
   protected ICardPile Deck;
   protected ICardPile Discard = new CardPile();
+  protected HashMap<COLOR,Integer> Banned = new HashMap<>();
 
   public CardPilesManager(ICardPile deck) {
     this.Deck = deck;
@@ -88,6 +91,17 @@ public class CardPilesManager implements ICardPilesManager {
   @Override
   public int sizeofDiscard() {
     return Discard.getSize();
+  }
+
+  @Override
+  public HashMap<COLOR, Integer> getBannedColors() {
+    return this.Banned;
+  }
+
+  @Override
+  public void addBannedColor(COLOR color) {
+    this.getBannedColors().put(color,3);
+    
   }
 
 }

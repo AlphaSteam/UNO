@@ -1,7 +1,9 @@
 package model.card;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.player.type.IPlayer;
 
@@ -67,5 +69,15 @@ public interface ICardPilesManager {
    * @return ArrayList with the cards added to player.
    */
   ArrayList<ICard> addCardsToPlayer(IPlayer player, int number);
-
+  /**
+   * Returns a list of banned colors.
+   * 
+   * @return list of banned colors.
+   */
+  HashMap<COLOR, Integer> getBannedColors();
+  /**
+   * Adds a color to the banned Colors.
+   * 
+   */
+  void addBannedColor(COLOR color);
 }

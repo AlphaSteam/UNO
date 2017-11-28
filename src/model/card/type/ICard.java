@@ -1,5 +1,7 @@
 package model.card.type;
 
+import java.util.HashMap;
+
 import controller.IController;
 import model.IGameLogic;
 
@@ -17,7 +19,7 @@ public interface ICard {
    * @param otherCard The card below this card.
    * @return True if the card is playable over the other one. False otherwise.
    */
-  boolean isPlayableOver(ICard otherCard);
+  boolean isPlayableOver(ICard otherCard,HashMap<COLOR, Integer> map);
 
   /**
    * Returns true if the card is able to be the first card played on a game.

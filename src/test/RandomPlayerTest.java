@@ -61,10 +61,10 @@ public class RandomPlayerTest {
     ICard CartaDistinta=new CardNum(COLOR.YELLOW, Symbol.SEVEN);
     Player1.addToHand(hand);
     game.playCard(CartaDistinta, ctrl);
-    Player1.getCardToPlay(game, ctrl);
+    Player1.getCardToPlay(game, ctrl,game.getBannedColors());
     game.playCard(new CardNum(COLOR.GREEN, Symbol.ONE), ctrl);
-    Player1.getCardToPlay(game, ctrl);
-    Player2.getCardToPlay(game, ctrl);
+    Player1.getCardToPlay(game, ctrl,game.getBannedColors());
+    Player2.getCardToPlay(game, ctrl,game.getBannedColors());
   }
   @Test
   public void getColor(){

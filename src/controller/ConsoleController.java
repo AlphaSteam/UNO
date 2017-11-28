@@ -45,7 +45,7 @@ public class ConsoleController extends Observable implements IController {
     IPlayer currentPlayer = game.getCurrentPlayer();
     this.cardPlayed = false;
     while (!this.cardPlayed) {
-      ICard card = currentPlayer.getCardToPlay(game, this);
+      ICard card = currentPlayer.getCardToPlay(game, this,game.getBannedColors());
       cardPlayed = game.playCard(card, this);
     }
   }

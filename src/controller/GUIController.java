@@ -48,7 +48,7 @@ public class GUIController implements IController {
       boolean played = false;
       view.WaitAlert(1);
       while (played == false) {
-        ICard card = game.getCurrentPlayer().getCardToPlay(game, this);
+        ICard card = game.getCurrentPlayer().getCardToPlay(game, this,game.getBannedColors());
         played = game.playCard(card, this);
       }
       

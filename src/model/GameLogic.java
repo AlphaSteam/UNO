@@ -1,10 +1,15 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import controller.IController;
 import model.card.CardPilesManager;
 import model.card.ICardPile;
 import model.card.ICardPilesManager;
+import model.card.type.COLOR;
 import model.card.type.ICard;
 import model.card.type.Symbol;
 import model.player.IPlayerManager;
@@ -17,14 +22,14 @@ import model.player.type.IPlayer;
  * @author Sebastian Alfaro
  * 
  */
-public class GameLogic  extends AbstractGameLogic  {
+public class GameLogic extends AbstractGameLogic {
   protected boolean ended = false;
   protected ICardPilesManager CardM;
   protected IPlayerManager PlayerM;
   protected int DrawWell = 0;
 
   public GameLogic(ArrayList<IPlayer> arrayList, ICardPile Deck) {
-    
+
     this.PlayerM = new PlayerManager(arrayList);
     this.CardM = new CardPilesManager(Deck);
     for (IPlayer player : this.PlayerM.getPlayers()) {
@@ -37,13 +42,15 @@ public class GameLogic  extends AbstractGameLogic  {
   @Override
   public boolean hasEnded() {
     return ended;
-    
+
   }
+
   @Override
   public ArrayList<IPlayer> getPlayers() {
     return PlayerM.getPlayers();
-    
+
   }
+
   @Override
   public IPlayer getCurrentPlayer() {
     return PlayerM.getCurrentPlayer();
@@ -76,43 +83,43 @@ public class GameLogic  extends AbstractGameLogic  {
   public void startTurn(IController ctrl) {
     PlayerM.startTurn();
     autoShoutUNO(ctrl);
-    if(this.getLastPlayer().hasWon()){
+    this.UpdateBans();
+    if (this.getLastPlayer().hasWon()) {
       this.announceWinner(ctrl);
     }
-   ICard CurrentCard=this.getCurrentPlayedCard();
+    ICard CurrentCard = this.getCurrentPlayedCard();
     if (!this.isDrawWellEmpty()) {
-      IPlayer Current=this.getCurrentPlayer();
-      if(!Current.HasCard(CurrentCard.getColor(), CurrentCard.getSymbol())){
-      this.drawCardsFromWell(getCurrentPlayer(), ctrl);
-      this.resetDrawWell();
-      this.skipPlayer();
-      }
-      else{
-        
-        if(CurrentCard.getSymbol()==Symbol.WILD_DRAW_FOUR){
-          for(int i=0;i<Current.getHandSize();i++){
-            ICard Card=Current.getCardFromHand(i);
-            if(Card.getSymbol()==Symbol.WILD_DRAW_FOUR){
+      IPlayer Current = this.getCurrentPlayer();
+      if (!Current.HasCard(CurrentCard.getColor(), CurrentCard.getSymbol())) {
+        this.drawCardsFromWell(getCurrentPlayer(), ctrl);
+        this.resetDrawWell();
+        this.skipPlayer();
+      } else {
+
+        if (CurrentCard.getSymbol() == Symbol.WILD_DRAW_FOUR) {
+          for (int i = 0; i < Current.getHandSize(); i++) {
+            ICard Card = Current.getCardFromHand(i);
+            if (Card.getSymbol() == Symbol.WILD_DRAW_FOUR) {
               this.playCard(Card, ctrl);
             }
           }
-          
+
         }
-        if(CurrentCard.getSymbol()==Symbol.DRAW_TWO){
-          for(int i=0;i<Current.getHandSize();i++){
-            ICard Card=Current.getCardFromHand(i);
-            if(Card.getSymbol()==CurrentCard.getSymbol()){
+        if (CurrentCard.getSymbol() == Symbol.DRAW_TWO) {
+          for (int i = 0; i < Current.getHandSize(); i++) {
+            ICard Card = Current.getCardFromHand(i);
+            if (Card.getSymbol() == CurrentCard.getSymbol()) {
               this.playCard(Card, ctrl);
             }
           }
-          for(int i=0;i<Current.getHandSize();i++){
-            ICard Card=Current.getCardFromHand(i);
-            if(Card.getSymbol()==Symbol.WILD_DRAW_FOUR){
+          for (int i = 0; i < Current.getHandSize(); i++) {
+            ICard Card = Current.getCardFromHand(i);
+            if (Card.getSymbol() == Symbol.WILD_DRAW_FOUR) {
               this.playCard(Card, ctrl);
             }
           }
         }
-        
+
       }
     }
 
@@ -157,7 +164,7 @@ public class GameLogic  extends AbstractGameLogic  {
 
   @Override
   public boolean playCard(ICard playedCard, IController ctrl) {
-    if (playedCard.isPlayableOver(CardM.getCurrentPlayedCard())) {
+    if (playedCard.isPlayableOver(CardM.getCurrentPlayedCard(),this.getBannedColors())) {
       this.getCurrentPlayer().removeCardFromHand(playedCard);
       playedCard.executeAction(this, ctrl);
       CardM.discard(playedCard);
@@ -192,12 +199,34 @@ public class GameLogic  extends AbstractGameLogic  {
 
   @Override
   public ICardPilesManager getCardManager() {
-   return this.CardM;
+    return this.CardM;
   }
 
-  
+  @Override
+  public void BanColor(String color) {
+    this.getCardManager().addBannedColor(COLOR.valueOf(color));
 
+  }
 
+  @Override
+  public void UpdateBans() {
+    Map<COLOR, Integer> Banned = this.getCardManager().getBannedColors();
+    Iterator<COLOR> it = Banned.keySet().iterator();
+    while(it.hasNext()){
+      COLOR key =it.next();
+      if(Banned.get(key)>0){
+      Banned.put(key, Banned.get(key)-1);
+      }
+      else{
+        Banned.remove(key);
+      }
+    }
+  }
+
+  @Override
+  public HashMap<COLOR, Integer> getBannedColors() {
+   return this.getCardManager().getBannedColors();
+  }
 
 
 

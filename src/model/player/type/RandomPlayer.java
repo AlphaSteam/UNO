@@ -1,6 +1,8 @@
 package model.player.type;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import controller.IController;
 import model.IGameLogic;
 import model.card.type.COLOR;
@@ -34,10 +36,10 @@ public class RandomPlayer extends AbstractPlayer {
   }
 
   @Override
-  public ICard getCardToPlay(IGameLogic game, IController ctrl) {
-    if (!this.needsToDrawCard(game.getCurrentPlayedCard())) {
+  public ICard getCardToPlay(IGameLogic game, IController ctrl,HashMap<COLOR,Integer> map) {
+    if (!this.needsToDrawCard(game.getCurrentPlayedCard(),map)) {
       for (int j = 0; j < this.getHandSize(); j++) {
-        if (this.getCardFromHand(j).isPlayableOver(game.getCurrentPlayedCard())) {
+        if (this.getCardFromHand(j).isPlayableOver(game.getCurrentPlayedCard(),map)) {
           Playable.add(getCardFromHand(j));
         }
       }

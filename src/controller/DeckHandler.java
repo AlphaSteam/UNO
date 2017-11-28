@@ -21,7 +21,7 @@ public DeckHandler(IGameLogic game,GUIController ctrl,GUIView view){
 public void handle(Event event) {
   IPlayer CurrentPlayer=Game.getCurrentPlayer();
   
-  if(CurrentPlayer.needsToDrawCard(Game.getCurrentPlayedCard())){
+  if(CurrentPlayer.needsToDrawCard(Game.getCurrentPlayedCard(),Game.getBannedColors())){
     Game.drawOneCard(CurrentPlayer);
     view.updateCurrentStatus();
   }

@@ -1,6 +1,7 @@
 package model.player.type;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import controller.IController;
 import model.IGameLogic;
@@ -36,7 +37,7 @@ public interface IPlayer {
    * @param ctrl actual controller
    * @return a card for playing.
    */
-  ICard getCardToPlay(IGameLogic game, IController ctrl);
+  ICard getCardToPlay(IGameLogic game, IController ctrl,HashMap<COLOR,Integer> map);
 
   /**
    * Returns a color selected when a color change card is played.
@@ -95,7 +96,7 @@ public interface IPlayer {
    * @param currentCard current card card in play now.
    * @return true if the player needs to draw a card.
    */
-  boolean needsToDrawCard(ICard currentCard);
+  boolean needsToDrawCard(ICard currentCard,HashMap<COLOR,Integer> map);
   /**
    * Returns true if the player has a certain card in hand
    * @return true if the player has a certain card in hand
@@ -114,5 +115,4 @@ public interface IPlayer {
    * @return true if the player is human and false otherwhise
    */
   boolean isHuman();
-
 }
