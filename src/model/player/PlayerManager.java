@@ -91,6 +91,12 @@ this.startTurn();
 
   }
 
+  @Override
+  public void StopTime() {
+    index=this.players.indexOf(getLastPlayer());
+    
+  }
+
   
 
 }

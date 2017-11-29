@@ -747,7 +747,7 @@ public class GUIView extends Application implements Observer {
 
   public static IGameLogic MakeGame() {
     DeckBuilder DB = new DeckBuilder();
-    DB.SetBanStrategy();
+    //DB.SetBanStrategy();
     ICardPile Deck = DB.createDeck();
     IPlayerListBuilder playerBuilder = new PlayerListBuilder();
     IPlayer Player1 = new HumanPlayer("Seba");

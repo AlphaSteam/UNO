@@ -46,5 +46,9 @@ public interface IPlayerManager {
    * Skips the next player's turn
    */
   void skipPlayer();
+  /**
+   * Stops time, letting the player play another card
+   */
+  void StopTime();
 
 }

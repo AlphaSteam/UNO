@@ -228,6 +228,12 @@ public class GameLogic extends AbstractGameLogic {
    return this.getCardManager().getBannedColors();
   }
 
+  @Override
+  public void StopTime() {
+   PlayerM.StopTime();
+    
+  }
+
 
 
 }

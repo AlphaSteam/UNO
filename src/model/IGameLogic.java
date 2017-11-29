@@ -79,6 +79,11 @@ public interface IGameLogic  {
   void skipPlayer();
 
   /**
+   * Stops time, letting the player play another card.
+   */
+  void StopTime();
+
+  /**
    * Adds cards to the draw well.
    * 
    * @param number Number of cards to be added to the DrawWell.

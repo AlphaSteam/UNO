@@ -10,6 +10,7 @@ import model.card.type.CardInvertir;
 import model.card.type.CardNum;
 import model.card.type.CardRobar2;
 import model.card.type.CardSaltar;
+import model.card.type.CardZAWARUDO;
 import model.card.type.COLOR;
 import model.card.type.CardBan;
 import model.card.type.ICard;
@@ -70,6 +71,12 @@ public class NormalDeckStrategy implements IDeckStrategy {
       for (COLOR col : COLOR.getColors()) {
         ICard newCard = new CardBan(col);
         ICard newCard2 = new CardBan(col);
+        Deck.pushCard(newCard);
+        Deck.pushCard(newCard2);
+      }
+      for (int i=0;i<4;i++) {
+        ICard newCard = new CardZAWARUDO();
+        ICard newCard2 = new CardZAWARUDO();
         Deck.pushCard(newCard);
         Deck.pushCard(newCard2);
       }
