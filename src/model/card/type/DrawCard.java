@@ -10,7 +10,7 @@ import model.IGameLogic;
  * <p>
  * This card can't be discarded and it's effect is that the player draws one card.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class DrawCard extends AbstractCard {

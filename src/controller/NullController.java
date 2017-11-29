@@ -10,7 +10,7 @@ import model.player.type.IPlayer;
 /**
  * A controller that doesn't print anything on screen.
  * 
- * @author eriveros
+ * @author Sebastian Alfaro
  *
  */
 public class NullController implements IController {
@@ -36,7 +36,7 @@ public class NullController implements IController {
     IPlayer currentPlayer = game.getCurrentPlayer();
     this.cardPlayed = false;
     while (!this.cardPlayed) {
-      ICard card = currentPlayer.getCardToPlay(game, this,game.getBannedColors());
+      ICard card = currentPlayer.getCardToPlay(game, this, game.getBannedColors());
       cardPlayed = game.playCard(card, this);
     }
   }
@@ -56,20 +56,6 @@ public class NullController implements IController {
     return COLOR.getColors()[num];
   }
 
-  @Override
-  public int AskForCardFromHand(IPlayer player) {
-    int num = -1;
-
-    while (num < 0 || num > player.getHandSize()) {
-      num = in.nextInt();
-    }
-    return num;
-  }
-
-  @Override
-  public void showMessage(String message) {
-    return;
-  }
 
   @Override
   public void updatePlayedCard() {
@@ -79,13 +65,13 @@ public class NullController implements IController {
   @Override
   public void SayUNO(IPlayer LastPlayer) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void announceWinner(IPlayer player) {
     // TODO Auto-generated method stub
-    
+
   }
 
 

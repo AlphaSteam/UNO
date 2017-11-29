@@ -16,7 +16,7 @@ public enum Symbol {
 
   private String name;
 
-  /**
+  /**F
    * Constructor for a symbol can assign a name for it.
    * 
    * @param name

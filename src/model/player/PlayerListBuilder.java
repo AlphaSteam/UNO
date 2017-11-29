@@ -7,7 +7,7 @@ import model.player.type.IPlayer;
 /**
  * Implementation of the PlayerListBuilder Interface.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class PlayerListBuilder implements IPlayerListBuilder {

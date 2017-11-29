@@ -4,10 +4,10 @@ import model.card.CardPile;
 import model.card.ICardPile;
 
 /**
- * Strategy that DeckBuilder can use to make a test UNO deck, this deck doesn't come with cards, the
- * yhave to be added later.
+ * Strategy that DeckBuilder can use to make a test UNO deck, this deck doesn't come with cards,
+ * they have to be added later.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class TestDeckStrategy implements IDeckStrategy {

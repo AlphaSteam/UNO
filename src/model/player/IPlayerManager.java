@@ -22,7 +22,7 @@ public interface IPlayerManager {
   /**
    * Returns the nexy player
    * 
-   * @return next player
+   * @return next playerF
    */
   IPlayer getNextPlayer();
   /**

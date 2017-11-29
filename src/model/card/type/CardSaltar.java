@@ -9,7 +9,8 @@ import model.IGameLogic;
  * Effect:
  * <p>
  * Skips the turn of the next player.
- * @author Sebastian
+ * 
+ * @author Sebastian Alfaro
  *
  */
 public class CardSaltar extends AbstractCard {
@@ -23,8 +24,7 @@ public class CardSaltar extends AbstractCard {
   public void executeAction(IGameLogic game, IController ctrl) {
     game.skipPlayer();
     game.autoShoutUNO(ctrl);
-    ctrl.showMessage("->Carta jugada: " + this.toString());
-    ctrl.showMessage("Efecto: Salta el turno del siguiente jugador");
+
 
   }
 

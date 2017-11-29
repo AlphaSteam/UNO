@@ -4,12 +4,13 @@ import controller.IController;
 import model.IGameLogic;
 
 /**
- * Skip card.
+ * BAN card.
  * <p>
  * Effect:
  * <p>
- * Skips the turn of the next player.
- * @author Sebastian
+ * Bans the color for three turns(That color cannot be played, or chose in a color prompt).
+ * 
+ * @author Sebastian Alfaro
  *
  */
 public class CardBan extends AbstractCard {

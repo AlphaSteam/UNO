@@ -6,6 +6,12 @@ import model.card.type.ICard;
 import model.player.type.IPlayer;
 import view.GUIView;
 
+/**
+ * Controls the game by playing a turn or calling new windows when needed.
+ * 
+ * @author Sebastian Alfaro
+ *
+ */
 public class GUIController implements IController {
   IGameLogic game;
   GUIView view;
@@ -15,27 +21,15 @@ public class GUIController implements IController {
     this.view = view;
     game.getCurrentPlayedCard().executeAction(game, this);
   }
+
   @Override
-  public void SayUNO(IPlayer player){
+  public void SayUNO(IPlayer player) {
     view.UNOAlert(player);
   }
 
   @Override
   public COLOR askForColor() {
     return view.ChooseColorAlert();
-  }
-
-  @Override
-  public int AskForCardFromHand(IPlayer player) {
-    return 0;
-
-  }
-
-  
-  @Override
-  public void showMessage(String message) {
-    return;
-
   }
 
   @Override
@@ -50,10 +44,10 @@ public class GUIController implements IController {
       boolean played = false;
       view.WaitAlert(1);
       while (played == false) {
-        ICard card = game.getCurrentPlayer().getCardToPlay(game, this,game.getBannedColors());
+        ICard card = game.getCurrentPlayer().getCardToPlay(game, this, game.getBannedColors());
         played = game.playCard(card, this);
       }
-      
+
     }
 
   }
@@ -64,10 +58,11 @@ public class GUIController implements IController {
     view.updatePlayedCard();
 
   }
+
   @Override
   public void announceWinner(IPlayer player) {
-   view.WinnerAlert(player);
-    
+    view.WinnerAlert(player);
+
   }
 
 

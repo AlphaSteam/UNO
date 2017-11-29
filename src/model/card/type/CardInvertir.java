@@ -11,7 +11,7 @@ import model.IGameLogic;
  * Changes the direction of the game (Instead of the player that would play after you, play the one
  * before you and so on, the direction doesn't change again until another reverse card is played).
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class CardInvertir extends AbstractCard {
@@ -24,8 +24,7 @@ public class CardInvertir extends AbstractCard {
   @Override
   public void executeAction(IGameLogic game, IController ctrl) {
     game.invertDirection();
-    ctrl.showMessage("->Carta jugada: " + this.toString());
-    ctrl.showMessage("Efecto :Invierte el sentido de juego");
+ 
 
   }
 

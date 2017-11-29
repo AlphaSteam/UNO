@@ -5,6 +5,12 @@ import java.util.Stack;
 
 import model.card.type.ICard;
 
+/**
+ * Class that represents a Pile of Cards
+ * 
+ * @author Sebastian Alfaro
+ *
+ */
 public class CardPile implements ICardPile {
   protected Stack<ICard> Pile = new Stack<ICard>();
 

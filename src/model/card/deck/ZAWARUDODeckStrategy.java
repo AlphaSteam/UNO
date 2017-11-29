@@ -9,10 +9,10 @@ import model.card.type.ICard;
 import model.card.type.Symbol;
 
 /**
- * Strategy that DeckBuilder can use to make a normal UNO deck, this consists of 108 cards, 76
- * Numeric cards, 24 action cards and 8 wild cards.
+ * Strategy that DeckBuilder can use to make a normal UNO deck, this consists of 70 ZAWARUDO Cards
+ * and one Numeric Card.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class ZAWARUDODeckStrategy implements IDeckStrategy {
@@ -22,7 +22,7 @@ public class ZAWARUDODeckStrategy implements IDeckStrategy {
     {
       ICardPile Deck = new CardPile();
 
-      for(int i=0;i<70;i++){
+      for (int i = 0; i < 70; i++) {
         ICard newCard3 = new CardZAWARUDO();
         Deck.pushCard(newCard3);
       }

@@ -57,6 +57,12 @@ import model.player.type.HumanPlayer;
 import model.player.type.IPlayer;
 import model.player.type.RandomPlayer;
 
+/**
+ * Displays all the elements of GUI of the game.
+ * 
+ * @author Sebastian Alfaro
+ *
+ */
 public class GUIView extends Application implements Observer {
   // Players
   private IPlayer CurrentPlayer;
@@ -308,7 +314,7 @@ public class GUIView extends Application implements Observer {
     gp3.add(LeftView, 0, 0);
     gp3.add(hhand, 1, 0);
     gp3.add(RightView, 2, 0);
-    gp3.setGridLinesVisible(true);
+    // gp3.setGridLinesVisible(true);
     gp3.setAlignment(Pos.CENTER);
     root.setBottom(gp3);
 
@@ -747,8 +753,8 @@ public class GUIView extends Application implements Observer {
 
   public static IGameLogic MakeGame() {
     DeckBuilder DB = new DeckBuilder();
-    //DB.SetBanStrategy();
-    //DB.SetDIOStrategy();
+    // DB.SetBanStrategy();
+    // DB.SetDIOStrategy();
     ICardPile Deck = DB.createDeck();
     IPlayerListBuilder playerBuilder = new PlayerListBuilder();
     IPlayer Player1 = new HumanPlayer("Seba");
@@ -760,13 +766,13 @@ public class GUIView extends Application implements Observer {
     IPlayer marco = new HumanPlayer("Marco");
     IPlayer matilde = new HumanPlayer("Matilde");
     playerBuilder.addPlayer(PlayerR1);
-    //playerBuilder.addPlayer(franco);
-    //playerBuilder.addPlayer(juan);
-    //playerBuilder.addPlayer(marco);
-    //playerBuilder.addPlayer(matilde);
-    //playerBuilder.addPlayer(Player1);
-    //playerBuilder.addPlayer(PlayerR3);
-    //playerBuilder.addPlayer(PlayerR4);
+    playerBuilder.addPlayer(franco);
+    playerBuilder.addPlayer(juan);
+    playerBuilder.addPlayer(marco);
+    playerBuilder.addPlayer(matilde);
+    playerBuilder.addPlayer(Player1);
+    playerBuilder.addPlayer(PlayerR3);
+    playerBuilder.addPlayer(PlayerR4);
     ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();
     IGameLogic game = new GameLogic(AL, Deck);
     return game;
@@ -814,7 +820,6 @@ public class GUIView extends Application implements Observer {
         - game.getCardManager().sizeofDiscard() + "Cards");
     hhand.getChildren().clear();
     hhand.setMinWidth(1790);
-
     // Cards in hand
     if (CurrentPlayer.isHuman()) {
       for (int i = this.FirstCardIndex; i < Math.min(game.getCurrentPlayer().getHandSize(),
@@ -853,7 +858,7 @@ public class GUIView extends Application implements Observer {
   public void update(Observable o, Object arg) {
     if ((Boolean) arg) {
       this.FirstCardIndex = 0;
-      if(game.getNextPlayer().hasWon()){
+      if (game.getNextPlayer().hasWon()) {
         this.WinnerAlert(CurrentPlayer);
         Platform.exit();
         System.exit(0);

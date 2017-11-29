@@ -10,7 +10,7 @@ import model.IGameLogic;
  * <p>
  * Changes the color to the one that the player chooses.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class CardComodinColor extends AbstractCard {
@@ -23,8 +23,6 @@ public class CardComodinColor extends AbstractCard {
   @Override
   public void executeAction(IGameLogic game, IController ctrl) {
     this.color = game.getCurrentPlayer().selectColor(game, ctrl);
-    ctrl.showMessage("->Carta jugada: " + this.toString());
-    ctrl.showMessage("Efecto:Cambia el color a eleccion");
   }
 
 }

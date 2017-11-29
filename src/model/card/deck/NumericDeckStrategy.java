@@ -12,7 +12,7 @@ import model.card.type.Symbol;
 /**
  * Strategy that DeckBuilder can use to make a numeric UNO deck, this consists of 76 Numeric cards.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class NumericDeckStrategy implements IDeckStrategy {

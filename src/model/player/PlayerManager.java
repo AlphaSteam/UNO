@@ -7,7 +7,7 @@ import model.player.type.IPlayer;
 /**
  * Implementation of the PlayerListManager Interface.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class PlayerManager implements IPlayerManager {
@@ -29,19 +29,20 @@ public class PlayerManager implements IPlayerManager {
   public IPlayer getCurrentPlayer() {
     return players.get(index);
   }
+
   @Override
   public IPlayer getLastPlayer() {
     if (this.Dir == Direction.COUNTERCLOCKWISE) {
       if (index > 0) {
-        return(players.get(index-1));
+        return (players.get(index - 1));
       } else {
-        return(players.get(players.size()-1));
+        return (players.get(players.size() - 1));
       }
     } else {
       if (index < getPlayers().size() - 1) {
-        return(players.get(index+1));
+        return (players.get(index + 1));
       } else {
-        return(players.get(0));
+        return (players.get(0));
       }
     }
   }
@@ -50,15 +51,15 @@ public class PlayerManager implements IPlayerManager {
   public IPlayer getNextPlayer() {
     if (this.Dir == Direction.COUNTERCLOCKWISE) {
       if (index < getPlayers().size() - 1) {
-        return(players.get(index+1));
+        return (players.get(index + 1));
       } else {
-        return(players.get(0));
+        return (players.get(0));
       }
     } else {
       if (index > 0) {
-        return(players.get(index-1));
+        return (players.get(index - 1));
       } else {
-        return(players.get(players.size()-1));
+        return (players.get(players.size() - 1));
       }
     }
   }
@@ -82,7 +83,7 @@ public class PlayerManager implements IPlayerManager {
 
   @Override
   public void startTurn() {
-    index=this.players.indexOf(getNextPlayer());
+    index = this.players.indexOf(getNextPlayer());
   }
 
   @Override
@@ -93,10 +94,10 @@ public class PlayerManager implements IPlayerManager {
 
   @Override
   public void StopTime() {
-    index=this.players.indexOf(getLastPlayer());
-    
+    index = this.players.indexOf(getLastPlayer());
+
   }
 
-  
+
 
 }

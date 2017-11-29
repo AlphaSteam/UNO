@@ -9,7 +9,8 @@ import model.IGameLogic;
  * Effect:
  * <p>
  * Stops time, so the player can use another card.
- * @author Sebastian
+ * 
+ * @author Sebastian Alfaro
  *
  */
 public class CardZAWARUDO extends AbstractCard {
@@ -24,8 +25,7 @@ public class CardZAWARUDO extends AbstractCard {
     game.StopTime();
     game.shoutUNONOW(ctrl);
 
-    
-    
+
 
   }
 

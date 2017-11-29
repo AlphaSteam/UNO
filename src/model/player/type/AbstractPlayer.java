@@ -74,23 +74,25 @@ public abstract class AbstractPlayer implements IPlayer {
   }
 
   @Override
-  public boolean needsToDrawCard(ICard currentCard,HashMap<COLOR,Integer> map) {
+  public boolean needsToDrawCard(ICard currentCard, HashMap<COLOR, Integer> map) {
     for (int i = 0; i < this.getHandSize(); i++) {
-      if (this.getCardFromHand(i).isPlayableOver(currentCard,map)) {
+      if (this.getCardFromHand(i).isPlayableOver(currentCard, map)) {
         return false;
       }
     }
     return true;
   }
+
   @Override
-  public boolean HasCard(COLOR color,Symbol symbol){
-    for(int i=0;i<this.getHandSize();i++){
-      if(this.getCardFromHand(i).getSymbol()==symbol && this.getCardFromHand(i).getColor()==color){
+  public boolean HasCard(COLOR color, Symbol symbol) {
+    for (int i = 0; i < this.getHandSize(); i++) {
+      if (this.getCardFromHand(i).getSymbol() == symbol
+          && this.getCardFromHand(i).getColor() == color) {
         return true;
       }
     }
     return false;
-    
+
   }
 
   @Override
@@ -102,10 +104,11 @@ public abstract class AbstractPlayer implements IPlayer {
       return NC;
     }
   }
+
   @Override
-  public boolean isHuman(){
+  public boolean isHuman() {
     return this.human;
   }
-  
+
 
 }

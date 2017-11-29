@@ -18,30 +18,17 @@ public interface IController {
    */
 
   public COLOR askForColor();
+
   /**
    * Displays that one player has said UNO
+   * 
    * @param LastPlayer player that said UNO
    */
   public void SayUNO(IPlayer LastPlayer);
 
   /**
-   * Asks for a card from hand to a player.
+   * Plays a turn
    * 
-   * @param player player asked for a card.
-   * @return a card from player's hand
-   */
-  
-  public int AskForCardFromHand(IPlayer player);
-
-  /**
-   * Shows a random message to the view.
-   * 
-   * @param message message to show
-   */
-  public void showMessage(String message);
-
-  /**
-   * Plays a turn from start to end.
    */
   public void playTurn();
 
@@ -49,8 +36,10 @@ public interface IController {
    * Updates the played card in the view.
    */
   void updatePlayedCard();
+
   /**
    * Annonunces Winner
+   * 
    * @param player Player that winned.
    */
   void announceWinner(IPlayer player);

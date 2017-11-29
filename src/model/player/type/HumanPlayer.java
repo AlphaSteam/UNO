@@ -5,13 +5,13 @@ import java.util.HashMap;
 import controller.IController;
 import model.IGameLogic;
 import model.card.type.COLOR;
-import model.card.type.DrawCard;
 import model.card.type.ICard;
+import model.card.type.NullCard;
 
 /**
  * Human player, this type of player is controlled by a human through the console.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class HumanPlayer extends AbstractPlayer {
@@ -35,14 +35,8 @@ public class HumanPlayer extends AbstractPlayer {
   }
 
   @Override
-  public ICard getCardToPlay(IGameLogic game, IController ctrl,HashMap<COLOR,Integer> map) {
-    int num = ctrl.AskForCardFromHand(this);
-    if (num < game.getCurrentPlayer().getHandSize()) {
-      return this.getCardFromHand(num);
-    } else {
-      return new DrawCard();
-
-    }
+  public ICard getCardToPlay(IGameLogic game, IController ctrl, HashMap<COLOR, Integer> map) {
+    return new NullCard();
 
   }
 

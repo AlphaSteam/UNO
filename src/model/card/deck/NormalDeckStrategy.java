@@ -20,7 +20,7 @@ import model.card.type.Symbol;
  * Strategy that DeckBuilder can use to make a normal UNO deck, this consists of 108 cards, 76
  * Numeric cards, 24 action cards and 8 wild cards.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class NormalDeckStrategy implements IDeckStrategy {
@@ -74,7 +74,7 @@ public class NormalDeckStrategy implements IDeckStrategy {
         Deck.pushCard(newCard);
         Deck.pushCard(newCard2);
       }
-      for (int i=0;i<4;i++) {
+      for (int i = 0; i < 4; i++) {
         ICard newCard = new CardZAWARUDO();
         ICard newCard2 = new CardZAWARUDO();
         Deck.pushCard(newCard);

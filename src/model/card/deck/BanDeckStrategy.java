@@ -7,10 +7,9 @@ import model.card.type.CardBan;
 import model.card.type.ICard;
 
 /**
- * Strategy that DeckBuilder can use to make a normal UNO deck, this consists of 108 cards, 76
- * Numeric cards, 24 action cards and 8 wild cards.
- * 
- * @author Sebastian
+ * Strategy that DeckBuilder can use to make a BAN UNO deck, this consists of 82 Temporal Ban Cards.
+ * s
+ * @author Sebastian Alfaro
  *
  */
 public class BanDeckStrategy implements IDeckStrategy {
@@ -25,7 +24,7 @@ public class BanDeckStrategy implements IDeckStrategy {
         ICard newCard2 = new CardBan(col);
         Deck.pushCard(newCard);
         Deck.pushCard(newCard2);
-        for(int i=0;i<80;i++){
+        for (int i = 0; i < 80; i++) {
           ICard newCard3 = new CardBan(col);
           Deck.pushCard(newCard3);
         }

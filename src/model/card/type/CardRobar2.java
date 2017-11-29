@@ -10,7 +10,7 @@ import model.IGameLogic;
  * <p>
  * Makes the next player draw 2 cards.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class CardRobar2 extends AbstractCard {
@@ -23,8 +23,7 @@ public class CardRobar2 extends AbstractCard {
   @Override
   public void executeAction(IGameLogic game, IController ctrl) {
     game.addToDrawWell(2);
-    ctrl.showMessage("->Carta jugada: " + this.toString());
-    ctrl.showMessage("Efecto : Hace que el siguiente jugador saque 2 cartas");
+
   }
 
 }

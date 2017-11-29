@@ -14,18 +14,19 @@ public abstract class AbstractCard implements ICard {
   protected COLOR color;
   protected Symbol symbol;
   protected boolean discardable;
+
   @Override
-  public boolean isPlayableOver(ICard otherCard, HashMap<COLOR,Integer> map) {
-    if(otherCard.getSymbol()==Symbol.BAN){
-      if(this.getColor()!=otherCard.getColor()){
+  public boolean isPlayableOver(ICard otherCard, HashMap<COLOR, Integer> map) {
+    if (otherCard.getSymbol() == Symbol.BAN) {
+      if (this.getColor() != otherCard.getColor()) {
         return true;
       }
     }
-    if(map.containsKey(getColor())){
+    if (map.containsKey(getColor())) {
       return false;
     }
     if ((otherCard.getColor() == this.color) || (otherCard.getSymbol() == this.symbol)
-        || (this.color == COLOR.NONE) || (otherCard.getColor()==COLOR.NONE) ) {
+        || (this.color == COLOR.NONE) || (otherCard.getColor() == COLOR.NONE)) {
       return true;
     } else {
       return false;

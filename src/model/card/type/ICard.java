@@ -17,9 +17,10 @@ public interface ICard {
    * It defines if a card is playable over another card.
    * 
    * @param otherCard The card below this card.
+   * @param map list of banned colors with the turns left until unbanned.
    * @return True if the card is playable over the other one. False otherwise.
    */
-  boolean isPlayableOver(ICard otherCard,HashMap<COLOR, Integer> map);
+  boolean isPlayableOver(ICard otherCard, HashMap<COLOR, Integer> map);
 
   /**
    * Returns true if the card is able to be the first card played on a game.

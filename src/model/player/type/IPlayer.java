@@ -19,6 +19,7 @@ public interface IPlayer {
 
   /**
    * Adds the array of cards to the hand of the player.
+   * 
    * @param hand The hand that will have the cards added to.
    */
   void addToHand(ArrayList<ICard> hand);
@@ -35,9 +36,10 @@ public interface IPlayer {
    * 
    * @param game actual game logic
    * @param ctrl actual controller
+   * @param map list of banned colors with the turns left until unbanned.
    * @return a card for playing.
    */
-  ICard getCardToPlay(IGameLogic game, IController ctrl,HashMap<COLOR,Integer> map);
+  ICard getCardToPlay(IGameLogic game, IController ctrl, HashMap<COLOR, Integer> map);
 
   /**
    * Returns a color selected when a color change card is played.
@@ -94,14 +96,20 @@ public interface IPlayer {
    * Returns true if the player needs to draw a card.
    * 
    * @param currentCard current card card in play now.
+   * @param map list of banned colors with the turns left until unbanned.
    * @return true if the player needs to draw a card.
    */
-  boolean needsToDrawCard(ICard currentCard,HashMap<COLOR,Integer> map);
+  boolean needsToDrawCard(ICard currentCard, HashMap<COLOR, Integer> map);
+
   /**
    * Returns true if the player has a certain card in hand
+   * 
+   * @param color Color of the card being checked is in the player's hand.
+   * @param symbol Symbol of the card being checked is in the player's hand.
    * @return true if the player has a certain card in hand
    */
-  boolean HasCard(COLOR color,Symbol symbol);
+  boolean HasCard(COLOR color, Symbol symbol);
+
   /**
    * Returns the number card from the hand of the player, or a NullCard if the card doesn't exist.
    * 
@@ -109,6 +117,7 @@ public interface IPlayer {
    * @return the number card from the player's hand. NullCard if it doesn't exist.
    */
   ICard getCardFromHand(int number);
+
   /**
    * Returns true the player is human and false otherwhise
    * 

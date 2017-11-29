@@ -8,10 +8,16 @@ import model.card.type.ICard;
 import model.card.type.NullCard;
 import model.player.type.IPlayer;
 
+/**
+ * Class of the Manager of the different piles of cards.
+ * 
+ * @author Sebastian Alfaro
+ *
+ */
 public class CardPilesManager implements ICardPilesManager {
   protected ICardPile Deck;
   protected ICardPile Discard = new CardPile();
-  protected HashMap<COLOR,Integer> Banned = new HashMap<>();
+  protected HashMap<COLOR, Integer> Banned = new HashMap<>();
 
   public CardPilesManager(ICardPile deck) {
     this.Deck = deck;
@@ -100,8 +106,8 @@ public class CardPilesManager implements ICardPilesManager {
 
   @Override
   public void addBannedColor(COLOR color, int i) {
-    this.getBannedColors().put(color,i);
-    
+    this.getBannedColors().put(color, i);
+
   }
 
 }

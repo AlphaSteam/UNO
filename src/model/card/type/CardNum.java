@@ -10,7 +10,7 @@ import model.IGameLogic;
  * <p>
  * Doesn't have any effect.
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class CardNum extends AbstractCard {
@@ -22,8 +22,7 @@ public class CardNum extends AbstractCard {
 
   @Override
   public void executeAction(IGameLogic game, IController ctrl) {
-    ctrl.showMessage("->Carta jugada: " + this.toString());
-    ctrl.showMessage("Efecto : No tiene efecto");
+
 
   }
 

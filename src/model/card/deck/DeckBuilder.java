@@ -5,7 +5,7 @@ import model.card.ICardPile;
 /**
  * Builder that uses the Strategy Pattern to create a UNO deck
  * 
- * @author Sebastian
+ * @author Sebastian Alfaro
  *
  */
 public class DeckBuilder {
@@ -38,12 +38,14 @@ public class DeckBuilder {
   public void SetNumericStrategy() {
     Strategy = new NumericDeckStrategy();
   }
+
   /**
    * Sets the strategy of the builder to make a deck full of Temporal Ban cards.
    */
   public void SetBanStrategy() {
     Strategy = new BanDeckStrategy();
   }
+
   /**
    * Sets the strategy of the builder to make a deck full of ZAWARUDO cards.
    */
@@ -53,10 +55,11 @@ public class DeckBuilder {
 
   /**
    * Creates the deck with the chosen strategy.
+   * 
    * @return ICardPile, that is the deck.
    */
   public ICardPile createDeck() {
     return (Strategy.createDeck());
   }
- 
+
 }

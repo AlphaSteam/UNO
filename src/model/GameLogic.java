@@ -34,7 +34,7 @@ public class GameLogic extends AbstractGameLogic {
     this.CardM = new CardPilesManager(Deck);
     for (IPlayer player : this.PlayerM.getPlayers()) {
       if (CardM.getDrawableCardsNumber() >= 7) {
-        CardM.addCardsToPlayer(player, 2);
+        CardM.addCardsToPlayer(player, 7);
       }
     }
   }
@@ -85,7 +85,7 @@ public class GameLogic extends AbstractGameLogic {
     autoShoutUNO(ctrl);
     this.UpdateBans();
     if (this.getLastPlayer().hasWon()) {
-      this.announceWinner(ctrl,this.getLastPlayer());
+      this.announceWinner(ctrl, this.getLastPlayer());
     }
     ICard CurrentCard = this.getCurrentPlayedCard();
     if (!this.isDrawWellEmpty()) {
@@ -192,7 +192,7 @@ public class GameLogic extends AbstractGameLogic {
   }
 
   @Override
-  public void announceWinner(IController ctrl,IPlayer player) {
+  public void announceWinner(IController ctrl, IPlayer player) {
     ctrl.announceWinner(player);
 
   }
@@ -239,7 +239,7 @@ public class GameLogic extends AbstractGameLogic {
       ctrl.SayUNO(this.getNextPlayer());
       this.getNextPlayer().setSaidUNO(true);
     }
-    
+
   }
 
 

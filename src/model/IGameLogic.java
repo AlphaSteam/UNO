@@ -15,7 +15,7 @@ import model.player.type.IPlayer;
  * @author eriveros
  *
  */
-public interface IGameLogic  {
+public interface IGameLogic {
   /**
    * returns the CardPilesManager
    * 
@@ -64,6 +64,7 @@ public interface IGameLogic  {
    * @param ctrl ConsoleController that controles what happens each turn in the game.
    */
   void autoShoutUNO(IController ctrl);
+
   /**
    * Allows to autoshout UNO if a player has only one card after he played a ZAWARUDO card.
    * 
@@ -144,23 +145,30 @@ public interface IGameLogic  {
    * @param ctrl Controller of the game.
    * @param player Player that won.
    */
-  void announceWinner(IController ctrl,IPlayer player);
+  void announceWinner(IController ctrl, IPlayer player);
+
   /**
    * Returns the list of players of the game
+   * 
    * @return the list of players of the game
    */
   ArrayList<IPlayer> getPlayers();
+
   /**
    * Bans a color for the next three turns
+   * 
    * @param color String corresponding to the color that will be banned.
    */
   void BanColor(String color);
+
   /**
    * Updates the number of turns left for each banned color.
    */
   void UpdateBans();
+
   /**
    * Returns list of banned colors.
+   * 
    * @return banned colors.
    */
   public HashMap<COLOR, Integer> getBannedColors();
