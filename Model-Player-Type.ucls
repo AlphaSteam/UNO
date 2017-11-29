@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.0" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="controller.ConsoleController" project="cc3002-tarea2" 
-    file="/cc3002-tarea2/src/controller/ConsoleController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="257" y="155"/>    
+  <class id="1" language="java" name="model.player.type.RandomPlayer" project="cc3002-tarea3" 
+    file="/cc3002-tarea3/src/model/player/type/RandomPlayer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="232" width="445" x="62" y="168"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="2" language="java" name="controller.IController" project="cc3002-tarea2" 
-    file="/cc3002-tarea2/src/controller/IController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="659" y="228"/>    
+  <class id="2" language="java" name="model.player.type.HumanPlayer" project="cc3002-tarea3" 
+    file="/cc3002-tarea3/src/model/player/type/HumanPlayer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="214" width="445" x="547" y="168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="model.player.type.AbstractPlayer" project="cc3002-tarea3" 
+    file="/cc3002-tarea3/src/model/player/type/AbstractPlayer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="357" width="380" x="547" y="-229"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="4" language="java" name="model.player.type.IPlayer" project="cc3002-tarea3" 
+    file="/cc3002-tarea3/src/model/player/type/IPlayer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="322" width="445" x="1032" y="168"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="controller.NullController" project="cc3002-tarea2" 
-    file="/cc3002-tarea2/src/controller/NullController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="258" y="420"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <realization id="4">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <realization id="5">    
+  <generalization id="5">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <realization id="6">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
   </realization>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

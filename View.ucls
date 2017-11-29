@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.0" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="view.ConsoleView" project="cc3002-tarea2" 
-    file="/cc3002-tarea2/src/view/ConsoleView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="178" width="197" x="41" y="37"/>    
+  <class id="1" language="java" name="view.GUIView" project="cc3002-tarea3" file="/cc3002-tarea3/src/view/GUIView.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="988" width="205" x="144" y="-159"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

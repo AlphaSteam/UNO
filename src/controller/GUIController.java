@@ -15,8 +15,9 @@ public class GUIController implements IController {
     this.view = view;
     game.getCurrentPlayedCard().executeAction(game, this);
   }
-  public void SayUNO(){
-    view.UNOAlert();
+  @Override
+  public void SayUNO(IPlayer player){
+    view.UNOAlert(player);
   }
 
   @Override
@@ -40,6 +41,7 @@ public class GUIController implements IController {
   @Override
   public void playTurn() {
     this.game.startTurn(this);
+    game.shoutUNONOW(this);
     updatePlayedCard();
     view.updateCurrentStatus();
     IPlayer CurrentPlayer = game.getCurrentPlayer();
@@ -63,10 +65,11 @@ public class GUIController implements IController {
 
   }
   @Override
-  public void announceWinner() {
-   view.WinnerAlert();
+  public void announceWinner(IPlayer player) {
+   view.WinnerAlert(player);
     
   }
+
 
 
 }

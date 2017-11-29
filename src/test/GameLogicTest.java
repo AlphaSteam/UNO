@@ -156,7 +156,7 @@ public class GameLogicTest {
   }
   @Test
   public void AnnounceWinner(){
-    game.announceWinner(ctrl);
+    game.announceWinner(ctrl,game.getLastPlayer());
   }
 }
 

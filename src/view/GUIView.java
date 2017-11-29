@@ -308,7 +308,7 @@ public class GUIView extends Application implements Observer {
     gp3.add(LeftView, 0, 0);
     gp3.add(hhand, 1, 0);
     gp3.add(RightView, 2, 0);
-    // gp3.setGridLinesVisible(true);
+    gp3.setGridLinesVisible(true);
     gp3.setAlignment(Pos.CENTER);
     root.setBottom(gp3);
 
@@ -352,7 +352,7 @@ public class GUIView extends Application implements Observer {
     primaryStage.setTitle("JavaUNO GUI");
     primaryStage.setScene(scene);
     primaryStage.show();
-
+    primaryStage.setOnCloseRequest(e -> System.exit(0));
     ctrl.playTurn();
 
 
@@ -515,7 +515,7 @@ public class GUIView extends Application implements Observer {
       hbox.setTranslateY(100 * (i + 1));
       hbox.setTranslateX(200);
       // hbox.setAlignment(Pos.CENTER);
-      
+
       // Color Status texts
       Text status = new Text("");
       Text turns = new Text("");
@@ -631,7 +631,7 @@ public class GUIView extends Application implements Observer {
     return COLOR.valueOf(colorBox.getValue().toUpperCase());
   }
 
-  public void UNOAlert() {
+  public void UNOAlert(IPlayer player) {
     // root(Group)
     Group root = new Group();
     // Scene
@@ -656,7 +656,7 @@ public class GUIView extends Application implements Observer {
     action.setX(30);
     action.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 26));
     // Choose text
-    Text choose = new Text(game.getLastPlayer() + " said UNO!");
+    Text choose = new Text(player + " said UNO!");
     choose.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 17));
     choose.setY(141);
     choose.setX(30);
@@ -683,7 +683,7 @@ public class GUIView extends Application implements Observer {
 
   }
 
-  public void WinnerAlert() {
+  public void WinnerAlert(IPlayer player) {
 
     // root(Group)
     Group root = new Group();
@@ -709,7 +709,7 @@ public class GUIView extends Application implements Observer {
     action.setX(30);
     action.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 26));
     // Choose text
-    Text choose = new Text(game.getLastPlayer() + " wins the game!\nCongratulations :D");
+    Text choose = new Text(player + " wins the game!\nCongratulations :D");
     choose.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 17));
     choose.setY(141);
     choose.setX(30);
@@ -748,6 +748,7 @@ public class GUIView extends Application implements Observer {
   public static IGameLogic MakeGame() {
     DeckBuilder DB = new DeckBuilder();
     //DB.SetBanStrategy();
+    //DB.SetDIOStrategy();
     ICardPile Deck = DB.createDeck();
     IPlayerListBuilder playerBuilder = new PlayerListBuilder();
     IPlayer Player1 = new HumanPlayer("Seba");
@@ -759,13 +760,13 @@ public class GUIView extends Application implements Observer {
     IPlayer marco = new HumanPlayer("Marco");
     IPlayer matilde = new HumanPlayer("Matilde");
     playerBuilder.addPlayer(PlayerR1);
-    playerBuilder.addPlayer(franco);
-    playerBuilder.addPlayer(juan);
-    playerBuilder.addPlayer(marco);
-    playerBuilder.addPlayer(matilde);
-    playerBuilder.addPlayer(Player1);
-    playerBuilder.addPlayer(PlayerR3);
-    playerBuilder.addPlayer(PlayerR4);
+    //playerBuilder.addPlayer(franco);
+    //playerBuilder.addPlayer(juan);
+    //playerBuilder.addPlayer(marco);
+    //playerBuilder.addPlayer(matilde);
+    //playerBuilder.addPlayer(Player1);
+    //playerBuilder.addPlayer(PlayerR3);
+    //playerBuilder.addPlayer(PlayerR4);
     ArrayList<IPlayer> AL = playerBuilder.buildPlayerList();
     IGameLogic game = new GameLogic(AL, Deck);
     return game;
@@ -852,6 +853,11 @@ public class GUIView extends Application implements Observer {
   public void update(Observable o, Object arg) {
     if ((Boolean) arg) {
       this.FirstCardIndex = 0;
+      if(game.getNextPlayer().hasWon()){
+        this.WinnerAlert(CurrentPlayer);
+        Platform.exit();
+        System.exit(0);
+      }
       ctrl.playTurn();
     } else {
       if (this.CurrentPlayer.isHuman()) {

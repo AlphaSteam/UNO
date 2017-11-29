@@ -20,8 +20,9 @@ public interface IController {
   public COLOR askForColor();
   /**
    * Displays that one player has said UNO
+   * @param LastPlayer player that said UNO
    */
-  public void SayUNO();
+  public void SayUNO(IPlayer LastPlayer);
 
   /**
    * Asks for a card from hand to a player.
@@ -50,6 +51,7 @@ public interface IController {
   void updatePlayedCard();
   /**
    * Annonunces Winner
+   * @param player Player that winned.
    */
-  void announceWinner();
+  void announceWinner(IPlayer player);
 }

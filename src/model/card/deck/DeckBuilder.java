@@ -44,6 +44,12 @@ public class DeckBuilder {
   public void SetBanStrategy() {
     Strategy = new BanDeckStrategy();
   }
+  /**
+   * Sets the strategy of the builder to make a deck full of ZAWARUDO cards.
+   */
+  public void SetDIOStrategy() {
+    Strategy = new ZAWARUDODeckStrategy();
+  }
 
   /**
    * Creates the deck with the chosen strategy.

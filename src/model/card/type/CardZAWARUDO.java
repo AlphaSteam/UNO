@@ -22,6 +22,9 @@ public class CardZAWARUDO extends AbstractCard {
   @Override
   public void executeAction(IGameLogic game, IController ctrl) {
     game.StopTime();
+    game.shoutUNONOW(ctrl);
+
+    
     
 
   }

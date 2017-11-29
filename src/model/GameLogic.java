@@ -34,7 +34,7 @@ public class GameLogic extends AbstractGameLogic {
     this.CardM = new CardPilesManager(Deck);
     for (IPlayer player : this.PlayerM.getPlayers()) {
       if (CardM.getDrawableCardsNumber() >= 7) {
-        CardM.addCardsToPlayer(player,7);
+        CardM.addCardsToPlayer(player, 2);
       }
     }
   }
@@ -74,7 +74,7 @@ public class GameLogic extends AbstractGameLogic {
   @Override
   public void autoShoutUNO(IController ctrl) {
     if ((this.getLastPlayer().hasOneCard()) && (!this.getLastPlayer().hasSaidUNO())) {
-      ctrl.SayUNO();
+      ctrl.SayUNO(getLastPlayer());
       this.getLastPlayer().setSaidUNO(true);
     }
   }
@@ -85,7 +85,7 @@ public class GameLogic extends AbstractGameLogic {
     autoShoutUNO(ctrl);
     this.UpdateBans();
     if (this.getLastPlayer().hasWon()) {
-      this.announceWinner(ctrl);
+      this.announceWinner(ctrl,this.getLastPlayer());
     }
     ICard CurrentCard = this.getCurrentPlayedCard();
     if (!this.isDrawWellEmpty()) {
@@ -164,7 +164,7 @@ public class GameLogic extends AbstractGameLogic {
 
   @Override
   public boolean playCard(ICard playedCard, IController ctrl) {
-    if (playedCard.isPlayableOver(CardM.getCurrentPlayedCard(),this.getBannedColors())) {
+    if (playedCard.isPlayableOver(CardM.getCurrentPlayedCard(), this.getBannedColors())) {
       this.getCurrentPlayer().removeCardFromHand(playedCard);
       playedCard.executeAction(this, ctrl);
       CardM.discard(playedCard);
@@ -192,8 +192,8 @@ public class GameLogic extends AbstractGameLogic {
   }
 
   @Override
-  public void announceWinner(IController ctrl) {
-    ctrl.announceWinner();
+  public void announceWinner(IController ctrl,IPlayer player) {
+    ctrl.announceWinner(player);
 
   }
 
@@ -204,7 +204,7 @@ public class GameLogic extends AbstractGameLogic {
 
   @Override
   public void BanColor(String color) {
-    this.getCardManager().addBannedColor(COLOR.valueOf(color),3);
+    this.getCardManager().addBannedColor(COLOR.valueOf(color), 3);
 
   }
 
@@ -212,12 +212,11 @@ public class GameLogic extends AbstractGameLogic {
   public void UpdateBans() {
     Map<COLOR, Integer> Banned = this.getCardManager().getBannedColors();
     Iterator<COLOR> it = Banned.keySet().iterator();
-    while(it.hasNext()){
-      COLOR key =it.next();
-      if(Banned.get(key)>0){
-      Banned.put(key, Banned.get(key)-1);
-      }
-      else{
+    while (it.hasNext()) {
+      COLOR key = it.next();
+      if (Banned.get(key) > 0) {
+        Banned.put(key, Banned.get(key) - 1);
+      } else {
         it.remove();
       }
     }
@@ -225,12 +224,21 @@ public class GameLogic extends AbstractGameLogic {
 
   @Override
   public HashMap<COLOR, Integer> getBannedColors() {
-   return this.getCardManager().getBannedColors();
+    return this.getCardManager().getBannedColors();
   }
 
   @Override
   public void StopTime() {
-   PlayerM.StopTime();
+    PlayerM.StopTime();
+
+  }
+
+  @Override
+  public void shoutUNONOW(IController ctrl) {
+    if ((this.getNextPlayer().hasOneCard()) && (!this.getNextPlayer().hasSaidUNO())) {
+      ctrl.SayUNO(this.getNextPlayer());
+      this.getNextPlayer().setSaidUNO(true);
+    }
     
   }
 

@@ -8,6 +8,6 @@ import java.util.Observable;
  * @author eriveros
  *
  */
-public abstract class AbstractGameLogic extends Observable implements IGameLogic  {
-  
+public abstract class AbstractGameLogic extends Observable implements IGameLogic {
+
 }

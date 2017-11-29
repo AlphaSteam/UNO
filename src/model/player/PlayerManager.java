@@ -87,7 +87,7 @@ public class PlayerManager implements IPlayerManager {
 
   @Override
   public void skipPlayer() {
-this.startTurn();
+    this.startTurn();
 
   }
 

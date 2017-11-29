@@ -64,6 +64,12 @@ public interface IGameLogic  {
    * @param ctrl ConsoleController that controles what happens each turn in the game.
    */
   void autoShoutUNO(IController ctrl);
+  /**
+   * Allows to autoshout UNO if a player has only one card after he played a ZAWARUDO card.
+   * 
+   * @param ctrl ConsoleController that controles what happens each turn in the game.
+   */
+  void shoutUNONOW(IController ctrl);
 
   /**
    * Prepares the turn to be initiated, changing the actual player, shouting UNO automatically,
@@ -136,8 +142,9 @@ public interface IGameLogic  {
    * Announces the winner of the game, if there's any.
    * 
    * @param ctrl Controller of the game.
+   * @param player Player that won.
    */
-  void announceWinner(IController ctrl);
+  void announceWinner(IController ctrl,IPlayer player);
   /**
    * Returns the list of players of the game
    * @return the list of players of the game

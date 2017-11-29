@@ -77,13 +77,13 @@ public class NullController implements IController {
   }
 
   @Override
-  public void SayUNO() {
+  public void SayUNO(IPlayer LastPlayer) {
     // TODO Auto-generated method stub
     
   }
 
   @Override
-  public void announceWinner() {
+  public void announceWinner(IPlayer player) {
     // TODO Auto-generated method stub
     
   }
